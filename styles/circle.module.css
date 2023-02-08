@@ -1,0 +1,113 @@
+.demo-2 {
+  --color-text: #a5a5a5;
+  --color-bg: #000000;
+  --color-link: #ea34a6;
+  --color-link-hover: #fff;
+  --color-font-circle: #7b7772;
+  --color-button: #ea34a6;
+  --color-text-button: #000000;
+  --color-text-circle-1: #ea34a6;
+  --color-text-circle-2: #422163;
+  --color-text-circle-3: #212044;
+  --color-text-circle-4: #292725;
+  --font-circle-1: "Roboto";
+  --font-weight-circle-1: 300;
+  --font-circle-2: "Roboto";
+  --font-weight-circle-2: 300;
+  --font-circle-3: "Roboto";
+  --font-weight-circle-3: 400;
+  --font-circle-4: "Roboto";
+  --font-weight-circle-4: 300;
+  --dim-button: 90px;
+}
+
+.enter {
+  display: block;
+  border: 0;
+  width: var(--dim-button);
+  height: var(--dim-button);
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  background: none;
+  color: var(--color-text-button);
+  padding: 0;
+}
+
+.enter:focus,
+.enter:hover,
+.enter:active {
+  outline: none;
+}
+
+.enterBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--color-button);
+}
+
+.enterText {
+  position: relative;
+}
+
+.js .enter {
+  opacity: 0;
+}
+
+.circles {
+  pointer-events: none;
+  position: fixed;
+  --dim: 186vmin;
+  width: var(--dim);
+  height: var(--dim);
+  top: calc(50% - var(--dim) / 2);
+  left: calc(50% - var(--dim) / 2);
+}
+
+.circlesText {
+  /* text-transform: uppercase; */
+  transform-origin: 700px 700px;
+  will-change: transform, opacity;
+}
+
+.circlesText1 {
+  /* font-size: 25vmin !important; */
+  font-size: clamp(170px, 25vmin, 180px);
+  font-family: "Roboto";
+  fill: #3fac5a;
+  font-weight: var(--font-weight-circle-1);
+  fill: var(--color-text-circle-1);
+}
+
+.circlesText2 {
+  /* font-size: 17vmin !important; */
+  font-size: clamp(136px, 17vmin, 153px);
+  font-family: "Roboto";
+  font-weight: var(--font-weight-circle-2);
+  fill: var(--color-text-circle-2);
+}
+
+.circlesText3 {
+  /* font-size: 13.5vmin !important; */
+  font-size: clamp(110px, 13.5vmin, 120px);
+  font-family: "Roboto";
+  font-weight: var(--font-weight-circle-3);
+  fill: var(--color-text-circle-3);
+}
+
+.circlesText4 {
+  /* font-size: 9.5vmin !important; */
+  font-size: clamp(85px, 9.5vmin, 94px);
+  font-family: "Roboto";
+  fill: #422163;
+  font-weight: var(--font-weight-circle-4);
+  fill: var(--color-text-circle-4);
+}
+
+.highlight {
+  fill: rgb(76, 15, 15) !important;
+}
