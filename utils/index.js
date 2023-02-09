@@ -16,7 +16,6 @@ import {
   flowFungibleAddr,
   fusdTokenAddr,
   flowNonFungibleAddr,
-  alchemyKey,
   discoveryUrl,
   network,
   discoveryEndpointUrl,
@@ -44,7 +43,7 @@ export const fclinit = () => {
     .put('app.detail.title', 'Flowns')
     .put(
       'app.detail.icon',
-      'https://trello.com/1/cards/624713879fd8c23f0395c63d/attachments/6247139af2071076c7d74c93/previews/6247139bf2071076c7d74cb3/download/logo192.png',
+      '',
     )
 
   initWalletConnect()

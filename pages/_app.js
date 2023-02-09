@@ -1,6 +1,7 @@
 import { QueryClientProvider } from 'react-query'
 import { Chakra } from '../components/chakra'
 import { appWithTranslation } from 'next-i18next'
+import ETHProvider from '../components/ethConnector/provider'
 import 'atropos/css'
 
 import themes from '../themes'
@@ -13,10 +14,14 @@ function MyApp({ Component, pageProps }) {
   const getLayout = Component.getLayout || ((page) => page)
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Fonts />
-      <Chakra theme={themes}>{getLayout(<Component {...pageProps} />)}</Chakra>
-    </QueryClientProvider>
+    <ETHProvider>
+      <QueryClientProvider client={queryClient}>
+        <Fonts />
+        <Chakra theme={themes}>
+          {getLayout(<Component {...pageProps} />)}
+        </Chakra>
+      </QueryClientProvider>
+    </ETHProvider>
   )
 }
 export default appWithTranslation(MyApp)

@@ -18,15 +18,10 @@ import Spinner from 'react-cli-spinners'
 import { AiOutlineArrowsAlt, AiOutlineLink } from 'react-icons/ai'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import moment from 'moment'
 import { useTranslation } from 'next-i18next'
-import Layout from '../../components/layouts/appBase'
+import Layout from '../../components/layouts/app'
 
-import { setDetailModal } from '../../stores/detailModal'
-import { timeformater } from '../../utils/index'
 import { useRegisterHistory } from '../../api/query'
-import { ellipseAddress, ellipseStr } from '../../utils'
-import { getExplorerTxUrl, oneYear } from '../../config/constants'
 
 export default function Doodles(props) {
   const { t } = useTranslation()

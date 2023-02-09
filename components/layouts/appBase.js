@@ -47,7 +47,7 @@ export default function Layout({ children }) {
               opacity='0.12'
             />
           )}
-          <Box py={[5, 5, 10]} pr={18}></Box>
+          <Box py={[2, 2, 3]} pr={18}></Box>
           {renderChildren()}
         </Container>
         <TransferModal cb={refetch}/>

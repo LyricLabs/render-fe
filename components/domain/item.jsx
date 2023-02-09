@@ -1,4 +1,13 @@
-import { Box, VStack, Flex, Text, Center } from '@chakra-ui/react'
+import { useState } from 'react'
+import {
+  Box,
+  VStack,
+  Flex,
+  Text,
+  Center,
+  useMediaQuery,
+  Button,
+} from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -19,9 +28,12 @@ const currentTime = moment().unix()
 export default function Comp(props) {
   const { t } = useTranslation()
   const router = useRouter()
+  const [isPC = true] = useMediaQuery('(min-width: 48em)')
 
   const { user } = accountStore.useState('user')
   const { domain, defaultDomain = '', isDetail = false } = props
+
+  const [isHover, setHover] = useState(false)
   const {
     name,
     owner,
@@ -47,30 +59,31 @@ export default function Comp(props) {
   const willExpired = !isExpired && duration < oneWeek && duration > 0
 
   const showWarning = deprecated || willExpired || isExpired
+  const showBtns = (!isPC || isHover) && !isDetail
 
   let backgroundColor = ''
 
-  switch (length) {
-    case 5:
-      backgroundColor =
-        'linear-gradient(117.2deg, rgba(67, 244, 255, 0.2) 41.23%, rgba(23, 35, 58, 0) 83.5%), linear-gradient(180deg, #9CB7FF 0%, #1F2545 100%);'
-      break
-    case 4:
-      backgroundColor =
-        'linear-gradient(117.2deg, rgba(67, 244, 255, 0.2) 41.23%, rgba(23, 35, 58, 0) 83.5%), linear-gradient(180deg, #00E075 0%, #17233A 100%);'
-      break
-    case 3:
-      backgroundColor =
-        'linear-gradient(117.2deg, rgba(255, 255, 255, 0.2) 41.23%, rgba(23, 35, 58, 0) 83.5%), linear-gradient(180deg, #0EDB8D 0%, #4313AB 100%);'
-      break
-    case 2:
-      backgroundColor =
-        'linear-gradient(117.2deg, rgba(198, 54, 210, 0.2) 41.23%, rgba(23, 35, 58, 0) 83.5%), linear-gradient(180deg, #FF5F49 0%, #003DCA 100%);'
-      break
-    default:
-      backgroundColor =
-        'linear-gradient(117.2deg, rgba(97, 137, 207, 0.2) 41.23%, rgba(23, 35, 58, 0) 83.5%), linear-gradient(180deg, #1E4C6F 0%, #072342 100%);'
-  }
+  // switch (length) {
+  //   case 5:
+  //     backgroundColor =
+  //       'linear-gradient(117.2deg, rgba(67, 244, 255, 0.2) 41.23%, rgba(23, 35, 58, 0) 83.5%), linear-gradient(180deg, #9CB7FF 0%, #1F2545 100%);'
+  //     break
+  //   case 4:
+  //     backgroundColor =
+  //       'linear-gradient(117.2deg, rgba(67, 244, 255, 0.2) 41.23%, rgba(23, 35, 58, 0) 83.5%), linear-gradient(180deg, #00E075 0%, #17233A 100%);'
+  //     break
+  //   case 3:
+  //     backgroundColor =
+  //       'linear-gradient(117.2deg, rgba(255, 255, 255, 0.2) 41.23%, rgba(23, 35, 58, 0) 83.5%), linear-gradient(180deg, #0EDB8D 0%, #4313AB 100%);'
+  //     break
+  //   case 2:
+  //     backgroundColor =
+  //       'linear-gradient(117.2deg, rgba(198, 54, 210, 0.2) 41.23%, rgba(23, 35, 58, 0) 83.5%), linear-gradient(180deg, #FF5F49 0%, #003DCA 100%);'
+  //     break
+  //   default:
+  //     backgroundColor =
+  //       'linear-gradient(117.2deg, rgba(97, 137, 207, 0.2) 41.23%, rgba(23, 35, 58, 0) 83.5%), linear-gradient(180deg, #1E4C6F 0%, #072342 100%);'
+  // }
 
   const width = 300
   const height = 400
@@ -122,25 +135,25 @@ export default function Comp(props) {
   }
 
   return (
-    <Atropos className="my-atropos">
+    <Atropos
+      className="my-atropos"
+      activeOffset={40}
+      onEnter={() => {
+        setHover(true)
+      }}
+      onLeave={() => {
+        setHover(false)
+      }}
+    >
       <Box
         pos="relative"
         p={4}
         w={width}
         h={(height / 4, height / 3, height)}
-        bg={backgroundColor}
+        bg={'gray'}
         overflow="hidden"
         borderRadius={6}
         cursor="pointer"
-        onClick={(e) => {
-          if (!isDetail) {
-            e.preventDefault()
-            if (deprecated) {
-              return null
-            }
-            router.push(`/domain/${name}`)
-          }
-        }}
         boxShadow="0px 24px 40px rgba(23, 35, 58, 0.12);"
       >
         {showWarning && (
@@ -174,7 +187,7 @@ export default function Comp(props) {
           pos="relative"
           borderRadius={6}
         >
-          <Box
+          {/* <Box
             w={width}
             height={width}
             top={height / 8}
@@ -182,7 +195,7 @@ export default function Comp(props) {
             bg="radial-gradient(50% 50% at 50% 50%, #00FFFF 0%, rgba(22, 152, 119, 0) 100%)"
             pos="absolute"
             mixBlendMode="overlay"
-          ></Box>
+          ></Box> */}
 
           <Box
             pos="absolute"
@@ -219,6 +232,7 @@ export default function Comp(props) {
               {name}
             </Text>
           </Box>
+
           {/* {renderLabel(
           isOwner ? `Owner: ${t('domain.owner')}` : `Owner: ${owner}`,
           `/account/${owner}`,
@@ -231,6 +245,18 @@ export default function Comp(props) {
                   `/domain/${defaultDomain}`,
                 )}
           </Box>
+
+          {showBtns && (
+            <Box>
+              <Button
+                onClick={() => {
+                  router.push(`/doodles/${name}`)
+                }}
+              >
+                Render
+              </Button>
+            </Box>
+          )}
           <Box w="100%" p={4} pos="absolute" bottom={0}>
             {renderBottom(expiredAt, id)}
           </Box>

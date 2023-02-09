@@ -4,7 +4,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import ReactGA from 'react-ga'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { Box, Text, Flex } from '@chakra-ui/react'
+import { Box, Text, Flex, Divider } from '@chakra-ui/react'
 
 import Layout from '../../components/layouts/appBase'
 import { gaCode } from '../../config/constants'
@@ -33,10 +33,10 @@ export default function Home() {
   const renderTip = () => {
     return (
       <Flex>
-        <Text textStyle='label'>{t('empty.domain')}</Text> &nbsp;&nbsp;
+        <Text textStyle="label">{t('empty.domain')}</Text> &nbsp;&nbsp;
         {isUser ? (
           <Link href={`/search`} passHref>
-            <Text color='secondary' cursor='pointer' textStyle='link'>
+            <Text color="secondary" cursor="pointer" textStyle="link">
               {t('take.one')}
             </Text>
           </Link>
@@ -52,20 +52,42 @@ export default function Home() {
         <LoadingPanel />
       ) : (
         <Box>
-          {isUser && <Flex px={8} justifyContent='flex-end' alignItems='center' mb={2} fontStyle='italic'>
-            <Link href={`/batch/renew`} passHref mr={4}>
-              <Text textColor='primary' textDecor='underline' cursor='pointer' textStyle='link'>
-                {t('batch.renew')}
-              </Text>
-            </Link>
-            &nbsp; &nbsp;
-            {/* <Link href={`/batch/register`} passHref>
+          {/* {isUser && (
+            <Flex
+              px={8}
+              justifyContent="flex-end"
+              alignItems="center"
+              mb={2}
+              fontStyle="italic"
+            >
+              <Link href={`/batch/renew`} passHref mr={4}>
+                <Text
+                  textColor="primary"
+                  textDecor="underline"
+                  cursor="pointer"
+                  textStyle="link"
+                >
+                  {t('batch.renew')}
+                </Text>
+              </Link>
+              &nbsp; &nbsp;
+              {/* <Link href={`/batch/register`} passHref>
               <Text textColor='primary' textDecor='underline' cursor='pointer' textStyle='link'>
                 {t('batch.register')}
               </Text>
-            </Link> */}
-          </Flex>}
-          {hasDomain ? <DomainList domains={domains} defaultDomain={defaultDomain}  /> : <EmptyList tip={renderTip()} />}
+            </Link> 
+            </Flex>
+          )} */}
+          <Box px={8} mb={4}>
+            <Text>{defaultDomain ? defaultDomain : user.addr}</Text>
+            <Text>{defaultDomain ? user.addr : ''}</Text>
+          </Box>
+          <Divider my={8} />
+          {hasDomain ? (
+            <DomainList domains={domains} defaultDomain={defaultDomain} />
+          ) : (
+            <EmptyList tip={renderTip()} />
+          )}
         </Box>
       )}
     </>

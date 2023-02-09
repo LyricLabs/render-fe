@@ -293,6 +293,60 @@ const query_ft_balance = (opt) => {
   }`
 }
 
+const query_sign_info_by_address = fcl.cdc`
+import Flowns from 0xFlowns
+import Domains from 0xDomains
+
+ pub fun main(address: Address): String? {
+      
+    let account = getAccount(address)
+    let collectionCap = account.getCapability<&{Domains.CollectionPublic}>(Domains.CollectionPublicPath) 
+  
+    if collectionCap.check() != true {
+      return nil
+    }
+  
+    var defaultDomain: &{Domains.DomainPublic}? = nil
+    let collection = collectionCap.borrow()!
+    let ids = collection.getIDs()
+    defaultDomain = collection.borrowDomain(id: ids[0])!
+    for id in ids {
+      let domain = collection.borrowDomain(id: id)!
+      let isDefault = domain.getText(key: "isDefault")
+      if isDefault == "true" {
+        defaultDomain = domain
+        break
+      }
+    }
+
+    let ethSigStr = defaultDomain!.getText(key: "_ethSig") ?? ""
+  
+    return ethSigStr
+  }
+  `
+  const query_sign_info_by_hash = fcl.cdc`
+  import Domains from 0xDomains
+
+  pub fun main(nameHash: String): String? {
+
+    let address = Domains.getRecords(nameHash) ?? panic("Domain not exist")
+    let account = getAccount(address)
+    let collectionCap = account.getCapability<&{Domains.CollectionPublic}>(Domains.CollectionPublicPath) 
+    let collection = collectionCap.borrow()!
+    var signInfo: String? = nil
+  
+    let id = Domains.getDomainId(nameHash)
+    if id != nil && !Domains.isDeprecated(nameHash: nameHash, domainId: id!) {
+      let domain = collection.borrowDomain(id: id!)
+      signInfo = domain.getText(key:"_ethSig")
+    }
+    return signInfo
+  }
+  
+    `
+  
+
+
 export const scripts = {
   check_domain_collection,
   query_root_domains_by_id,
@@ -318,7 +372,9 @@ export const scripts = {
   query_domain_available_with_raw,
   query_domain_page_info,
   query_domain_deprecated_info,
-  get_default_flowns_name
+  get_default_flowns_name,
+  query_sign_info_by_address,
+  query_sign_info_by_hash
 }
 
 export const buildAndExecScript = async (key, args = [], opt = {}) => {

@@ -240,11 +240,11 @@ const Components = ({ children }) => {
       <Stack
         direction={['column', 'column', 'row']}
         w='100%'
-        h={{ base: '98px', md: '144px' }}
+        h={{ base: '48px', md: '84px' }}
         spacing={[2, 2, 10]}
         p={[2, 2, 0]}
       >
-        <Flex w={['100%', '100%', '10%']} h={{ base: '38px', md: '144px' }} justify='space-between'>
+        <Flex w={['100%', '100%', '10%']} h={{ base: '48px', md: '84' }} justify='space-between'>
           <Logo />
           {!isPC && renderAccBtn()}
         </Flex>

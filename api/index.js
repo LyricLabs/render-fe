@@ -364,3 +364,13 @@ export const removeSubdomain = async (hash, subHash) => {
   ])
   return res
 }
+
+export const setEthAddrOnDomain = async (hash, addr, pubKey, signature) => {
+  const res = await buildAndSendTrx('set_eth_addr_on_domain', [
+    fcl.arg(hash, String),
+    fcl.arg(addr, String),
+    fcl.arg(pubKey, String),
+    fcl.arg(signature, String),
+  ])
+  return res
+}
