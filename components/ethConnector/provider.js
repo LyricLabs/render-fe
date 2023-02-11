@@ -5,6 +5,7 @@ import { configureChains, createClient, WagmiConfig } from 'wagmi'
 import { mainnet, polygon, optimism, arbitrum } from 'wagmi/chains'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { publicProvider } from 'wagmi/providers/public'
+// import { ThirdwebProvider, ChainId } from '@thirdweb-dev/react'
 
 export default function Comp(props) {
   const { chains, provider } = configureChains(
@@ -32,7 +33,9 @@ export default function Comp(props) {
           learnMoreUrl: 'https://render.flowns.app',
         }}
       >
-        {props.children}
+        {/* <ThirdwebProvider desiredChainId={ChainId.Mainnet}> */}
+          {props.children}
+        {/* </ThirdwebProvider> */}
       </RainbowKitProvider>
     </WagmiConfig>
   )

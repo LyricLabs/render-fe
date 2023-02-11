@@ -342,8 +342,100 @@ import Domains from 0xDomains
     }
     return signInfo
   }
+  `
+
+  const query_nft_datas_by_path = fcl.cdc`
   
-    `
+  import NonFungibleToken from 0xNonFungibleToken
+  import MetadataViews from 0xNonFungibleToken
+
+  pub struct ViewInfo {
+    pub let name: String
+    pub let description: String
+    pub let thumbnail: AnyStruct{MetadataViews.File}
+    pub let rarity: String?
+    pub let collectionDisplay: MetadataViews.NFTCollectionDisplay?
+
+    init(name: String, description: String, thumbnail: AnyStruct{MetadataViews.File}, rarity: String?, collectionDisplay: MetadataViews.NFTCollectionDisplay?) {
+      self.name = name
+      self.description = description
+      self.thumbnail = thumbnail
+      self.rarity = rarity
+      self.collectionDisplay = collectionDisplay
+    }
+  }
+
+  pub fun main(address: Address, storagePathID: String, limit: Int, offset: Int): {UInt64: ViewInfo}{
+    let account = getAuthAccount(address)
+    let res: {UInt64: ViewInfo} = {}
+    var collectionDisplayFetched = false
+
+    if tokenIDs.length == 0 {
+      return res
+    }
+
+    let path = StoragePath(identifier: storagePathID)!
+    let type = account.type(at: path)
+    if type == nil {
+      return res
+    }
+
+    let metadataViewType = Type<@AnyResource{MetadataViews.ResolverCollection}>()
+
+    let conformedMetadataViews = type!.isSubtype(of: metadataViewType)
+    if !conformedMetadataViews {
+      for tokenID in tokenIDs {
+        res[tokenID] = ViewInfo(
+          name: storagePathID,
+          description: "",
+          thumbnail: MetadataViews.HTTPFile(url: ""),
+          rarity: nil,
+          collectionDisplay: nil
+        )
+      }
+      return res
+    }
+
+    let collectionRef = account.borrow<&{MetadataViews.ResolverCollection, NonFungibleToken.CollectionPublic}>(from: path)
+    let IDs = collectionRef.getIDs()
+    let tokenIDs = IDs.slice(from: offset, upTo: offset + limit)
+    for tokenID in tokenIDs {
+      let resolver = collectionRef!.borrowViewResolver(id: tokenID)
+      if let display = MetadataViews.getDisplay(resolver) {
+        var rarityDesc: String? = nil
+        if let rarityView = MetadataViews.getRarity(resolver) {
+          rarityDesc = rarityView.description
+        }
+
+        var collectionDisplay: MetadataViews.NFTCollectionDisplay? = nil
+        if (!collectionDisplayFetched) {
+          if let cDisplay = MetadataViews.getNFTCollectionDisplay(resolver) {
+            collectionDisplay = cDisplay
+            collectionDisplayFetched = true
+          }
+        }
+
+        res[tokenID] = ViewInfo(
+          name: display.name,
+          description: display.description,
+          thumbnail: display.thumbnail,
+          rarity: rarityDesc,
+          collectionDisplay: collectionDisplay
+        )
+      } else {
+        res[tokenID] = ViewInfo(
+          name: storagePathID,
+          description: "",
+          thumbnail: MetadataViews.HTTPFile(url: ""),
+          rarity: nil,
+          collectionDisplay: nil
+        )
+      }
+    }
+    return res
+  }
+  
+  `
   
 
 
@@ -374,7 +466,8 @@ export const scripts = {
   query_domain_deprecated_info,
   get_default_flowns_name,
   query_sign_info_by_address,
-  query_sign_info_by_hash
+  query_sign_info_by_hash,
+  query_nft_datas_by_path
 }
 
 export const buildAndExecScript = async (key, args = [], opt = {}) => {

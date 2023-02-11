@@ -4,8 +4,6 @@ import Link from 'next/link'
 
 import { useTranslation } from 'next-i18next'
 import { useRootDomains } from '../../api/query'
-import Terminal from '../console'
-import Features from '../features'
 
 const Component = ({ children }) => {
   const { t } = useTranslation('common')

@@ -259,8 +259,7 @@ export default function Home() {
           </Stack> */}
           {ethAddr ? (
             <>
-              <DoodlesPanel />
-              {ethAddr}
+              <DoodlesPanel domainInfo={domainInfo} />
             </>
           ) : (
             <>
