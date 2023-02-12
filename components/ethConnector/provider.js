@@ -5,12 +5,13 @@ import { configureChains, createClient, WagmiConfig } from 'wagmi'
 import { mainnet, polygon, optimism, arbitrum } from 'wagmi/chains'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { publicProvider } from 'wagmi/providers/public'
+import { alchemyKey } from 'config/constants'
 // import { ThirdwebProvider, ChainId } from '@thirdweb-dev/react'
 
 export default function Comp(props) {
   const { chains, provider } = configureChains(
     [mainnet, polygon, optimism, arbitrum],
-    [alchemyProvider({ apiKey: process.env.ALCHEMY_ID }), publicProvider()],
+    [alchemyProvider({ apiKey: alchemyKey }), publicProvider()],
   )
 
   const { connectors } = getDefaultWallets({
@@ -34,7 +35,7 @@ export default function Comp(props) {
         }}
       >
         {/* <ThirdwebProvider desiredChainId={ChainId.Mainnet}> */}
-          {props.children}
+        {props.children}
         {/* </ThirdwebProvider> */}
       </RainbowKitProvider>
     </WagmiConfig>

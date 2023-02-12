@@ -17,9 +17,10 @@ import {
   queryBals,
   queryGraffle,
   getDomainDeprecatedInfo,
-  getUserDefaultDomain
+  getUserDefaultDomain,
 } from './index'
 import { namehash } from '../utils/hash'
+import axios from 'axios'
 
 export * from './queryClient'
 
@@ -27,6 +28,7 @@ const ROOT_DOMAINS_QUERY = 'getRootDomains'
 const FLOWNS_INFO_QUERY = 'getFlownsInfo'
 const DOMAIN_HISTORY_QUERY = 'getDomainHistory'
 const USER_COLLECTION_QUERY = 'getUserCollection'
+const GET_NFT_INFO = 'getNftInfo'
 
 export const getConnectedState = () => {
   const { appState = {} } = globalStore.useState('appState')
@@ -174,4 +176,18 @@ export const useRegisterHistory = (parentName = '') => {
   }
 
   return useQuery(`${DOMAIN_HISTORY_QUERY}-${parentName}`, queryRegisterHistory)
+}
+
+export const useNFTInfo = (cid, id, metadata = null) => {
+  const queryNFTInfo = async () => {
+    try {
+      const data = await axios.get('/api/data/ipfs', { params: { cid, id } })
+      console.log(data)
+    } catch (error) {
+      console.log(error)
+      return {}
+    }
+  }
+
+  return useQuery(`${GET_NFT_INFO}-${id}`, queryNFTInfo)
 }

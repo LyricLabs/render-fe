@@ -29,7 +29,10 @@ export default function Doodles(props) {
   const { history = [] } = data
   const [isPC = true] = useMediaQuery('(min-width: 48em)')
 
-  return <Box h="calc(100vh - 280px)" px={[4, 8]}></Box>
+  return <Box h="calc(100vh - 280px)" px={[4, 8]}>
+
+    
+  </Box>
 }
 
 Doodles.getLayout = function getLayout(page) {

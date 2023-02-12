@@ -14,14 +14,12 @@ function MyApp({ Component, pageProps }) {
   const getLayout = Component.getLayout || ((page) => page)
 
   return (
-    <ETHProvider>
-      <QueryClientProvider client={queryClient}>
-        <Fonts />
-        <Chakra theme={themes}>
-          {getLayout(<Component {...pageProps} />)}
-        </Chakra>
-      </QueryClientProvider>
-    </ETHProvider>
+    <QueryClientProvider client={queryClient}>
+      <Fonts />
+      <Chakra theme={themes}>
+        <ETHProvider>{getLayout(<Component {...pageProps} />)}</ETHProvider>
+      </Chakra>
+    </QueryClientProvider>
   )
 }
 export default appWithTranslation(MyApp)
