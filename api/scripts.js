@@ -241,7 +241,6 @@ pub fun main(address: Address): [UInt64] {
 }
 `
 
-
 const get_default_flowns_name = fcl.cdc`
 import Flowns from 0xFlowns
 import Domains from 0xDomains
@@ -270,7 +269,6 @@ import Domains from 0xDomains
   
     return flownsName
   }`
-
 
 const query_ft_balance = (opt) => {
   const { tokenConfig } = opt
@@ -324,7 +322,7 @@ import Domains from 0xDomains
     return ethSigStr
   }
   `
-  const query_sign_info_by_hash = fcl.cdc`
+const query_sign_info_by_hash = fcl.cdc`
   import Domains from 0xDomains
 
   pub fun main(nameHash: String): String? {
@@ -344,7 +342,7 @@ import Domains from 0xDomains
   }
   `
 
-  const query_nft_datas_by_path = fcl.cdc`
+const query_nft_datas_by_path = fcl.cdc`
   
   import NonFungibleToken from 0xNonFungibleToken
   import MetadataViews from 0xNonFungibleToken
@@ -365,14 +363,11 @@ import Domains from 0xDomains
     }
   }
 
-  pub fun main(address: Address, storagePathID: String, limit: Int, offset: Int): {UInt64: ViewInfo}{
+  pub fun main(address: Address, storagePathID: String, limit: Int, offset: Int): [ViewInfo] {
     let account = getAuthAccount(address)
-    let res: {UInt64: ViewInfo} = {}
+    let res: [ViewInfo] = []
     var collectionDisplayFetched = false
 
-    if tokenIDs.length == 0 {
-      return res
-    }
 
     let path = StoragePath(identifier: storagePathID)!
     let type = account.type(at: path)
@@ -380,25 +375,13 @@ import Domains from 0xDomains
       return res
     }
 
-    let metadataViewType = Type<@AnyResource{MetadataViews.ResolverCollection}>()
-
-    let conformedMetadataViews = type!.isSubtype(of: metadataViewType)
-    if !conformedMetadataViews {
-      for tokenID in tokenIDs {
-        res[tokenID] = ViewInfo(
-          name: storagePathID,
-          description: "",
-          thumbnail: MetadataViews.HTTPFile(url: ""),
-          rarity: nil,
-          collectionDisplay: nil
-        )
-      }
-      return res
-    }
-
     let collectionRef = account.borrow<&{MetadataViews.ResolverCollection, NonFungibleToken.CollectionPublic}>(from: path)
-    let IDs = collectionRef.getIDs()
-    let tokenIDs = IDs.slice(from: offset, upTo: offset + limit)
+    let IDs = collectionRef!.getIDs()
+    var upTo = offset + limit
+    if offset + limit > IDs.length {
+      upTo = IDs.length
+    }
+    let tokenIDs = IDs.slice(from: offset, upTo: upTo)
     for tokenID in tokenIDs {
       let resolver = collectionRef!.borrowViewResolver(id: tokenID)
       if let display = MetadataViews.getDisplay(resolver) {
@@ -415,29 +398,54 @@ import Domains from 0xDomains
           }
         }
 
-        res[tokenID] = ViewInfo(
+        let info = ViewInfo(
           name: display.name,
           description: display.description,
           thumbnail: display.thumbnail,
           rarity: rarityDesc,
           collectionDisplay: collectionDisplay
         )
+        res.append(info)
+    
       } else {
-        res[tokenID] = ViewInfo(
+        let info = ViewInfo(
           name: storagePathID,
           description: "",
           thumbnail: MetadataViews.HTTPFile(url: ""),
           rarity: nil,
           collectionDisplay: nil
         )
+        res.append(info)
       }
     }
     return res
   }
   
   `
-  
 
+const query_nfts_count_by_path = fcl.cdc`
+
+import NonFungibleToken from 0xNonFungibleToken
+import MetadataViews from 0xNonFungibleToken
+
+pub fun main(address: Address, storagePathID: String): Int {
+  let account = getAuthAccount(address)
+  let res: Int = 0
+
+  let path = StoragePath(identifier: storagePathID)!
+  let type = account.type(at: path)
+  if type == nil {
+    return 0
+  }
+
+  let collectionRef = account.borrow<&{MetadataViews.ResolverCollection, NonFungibleToken.CollectionPublic}>(from: path)
+  let IDs = collectionRef!.getIDs()
+
+  return IDs.length
+
+}
+
+  `
 
 export const scripts = {
   check_domain_collection,
@@ -467,7 +475,8 @@ export const scripts = {
   get_default_flowns_name,
   query_sign_info_by_address,
   query_sign_info_by_hash,
-  query_nft_datas_by_path
+  query_nft_datas_by_path,
+  query_nfts_count_by_path,
 }
 
 export const buildAndExecScript = async (key, args = [], opt = {}) => {

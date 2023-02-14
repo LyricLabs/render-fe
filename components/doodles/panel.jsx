@@ -39,31 +39,54 @@ export default function Comp(props) {
     {
       label: 'Doodles',
       icon: 'https://i.seadn.io/gae/7B0qai02OdHA8P_EOVK672qUliyjQdQDGNrACxs7WnTgZAkJa_wWURnIFKeOh5VTf8cfTqW3wQpozGedaC9mteKphEOtztls02RlWQ?auto=format&w=256',
-      content: () => (
-        <EthNFTs
-          nft={'0x8a90cab2b38dba80c64b7734e58ee1db38b8992e'}
-          abi={doodleABI}
-          addr={'0x6527045A43D0B8c0cD0E0a42a7c491aA715074C7'}
-          cid={'QmPMc4tcBsMqLRuCQtPmPe84bpSjrC3Ky7t3JWuHXYB4aS'}
-        />
-      ),
+      content: () => {
+        return (
+          <EthNFTs
+            nft={'0x8a90cab2b38dba80c64b7734e58ee1db38b8992e'}
+            abi={doodleABI}
+            addr={'0x6527045A43D0B8c0cD0E0a42a7c491aA715074C7'}
+            cid={'QmPMc4tcBsMqLRuCQtPmPe84bpSjrC3Ky7t3JWuHXYB4aS'}
+            collectionName={'Doodles'}
+          />
+        )
+      },
       chainId: 1,
       address: '0x8a90cab2b38dba80c64b7734e58ee1db38b8992e',
     },
     {
       label: 'Dooplicator',
       icon: 'https://i.seadn.io/gae/RrCR2EKxJnu_JoadezfSwRBFeiYexn54OwWyAtGdCfZpfvwmjlxiqrajlOrIJ1ri9SRnc6P-UxW9_saOFwp69vUDcxxr_Wr2S_YXjqc?auto=format&w=256',
-      content: () => {},
+      content: () => {
+        return (
+          <EthNFTs
+            nft={'0x8a90cab2b38dba80c64b7734e58ee1db38b8992e'}
+            abi={doodleABI}
+            addr={'0xc7FE0D62a590F8507a783a02029C1Fd5cEC0991a'}
+            collectionName={'Dooplicator'}
+            baseURI="https://metadata.artlab.xyz/0185fa75-ba04-8156-9fbe-bb39dc263392"
+          />
+        )
+      },
       chainId: 1,
-      address: '0x466cfcd0525189b573e794f554b8a751279213ac',
+      address: '"0x8a90cab2b38dba80c64b7734e58ee1db38b8992e"',
     },
-    {
-      label: 'Genesis Box',
-      icon: 'https://i.seadn.io/gcs/files/f4d45dbfa3027e116714b786da95c9bd.png?auto=format&w=256',
-      content: () => {},
-      chainId: 1,
-      address: '0xb75f09b4340aeb85cd5f2dd87d31751edc11ed39',
-    },
+    // {
+    //   label: 'Genesis Box',
+    //   icon: 'https://i.seadn.io/gcs/files/f4d45dbfa3027e116714b786da95c9bd.png?auto=format&w=256',
+    //   content: () => {
+    //     return (
+    //       <EthNFTs
+    //         nft={'0xb75f09b4340aeb85cd5f2dd87d31751edc11ed39'}
+    //         abi={doodleABI}
+    //         addr={'0x57f4d992CfcDf5A245A04eaf8835c45bfb1203E1'}
+    //         collectionName={'Genesis Box'}
+    //         cid={'QmZpBqpQEsrGFsa11S2woWi823mCaaYcGQbwzz7BoS3g8s'}
+    //       />
+    //     )
+    //   },
+    //   chainId: 1,
+    //   address: '0xb75f09b4340aeb85cd5f2dd87d31751edc11ed39',
+    // },
   ]
 
   const IconTab = ({ children, tabConfig }) => {

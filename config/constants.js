@@ -30,6 +30,7 @@ export const network = process.env.NEXT_PUBLIC_NETWORK
 
 export const rpcType = process.env.NEXT_PUBLIC_RPC_TYPE || 'RPC'
 
+
 export const nodeUrl =
   rpcType == 'REST'
     ? process.env.NEXT_PUBLIC_FLOW_ACCESS_NODE_REST

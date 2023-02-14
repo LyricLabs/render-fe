@@ -1,5 +1,5 @@
 import * as fcl from '@onflow/fcl'
-import { UInt64, Address, String, UFix64, Array } from '@onflow/types'
+import { UInt64, Address, String, UFix64, Array, Int } from '@onflow/types'
 
 import { buildAndExecScript } from './scripts'
 import { buildAndSendTrx } from './transactions'
@@ -371,6 +371,24 @@ export const setEthAddrOnDomain = async (hash, addr, pubKey, signature) => {
     fcl.arg(addr, String),
     fcl.arg(pubKey, String),
     fcl.arg(signature, String),
+  ])
+  return res
+}
+
+export const queryFlowNFTsByPath = async (path, address, limit, offset) => {
+  const res = await buildAndExecScript('query_nft_datas_by_path', [
+    fcl.arg(address, Address),
+    fcl.arg(path, String),
+    fcl.arg(limit, Int),
+    fcl.arg(offset, Int),
+  ])
+  return res
+}
+
+export const queryFlowNFTsLengthByPath = async (path, address) => {
+  const res = await buildAndExecScript('query_nfts_count_by_path', [
+    fcl.arg(address, Address),
+    fcl.arg(path, String),
   ])
   return res
 }

@@ -7,6 +7,7 @@ const store = new Rekv({
   domains: [],
   flowBalance: 0.0,
   tokenBals: {},
+  defaultDomain: '',
 })
 
 export const ifOwner = (address = '') => {

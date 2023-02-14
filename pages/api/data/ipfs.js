@@ -14,7 +14,7 @@ const queryIpfs = async (req, res) => {
           Accept: 'text/plain',
         },
       })
-      console.log(data)
+      // console.log(data)
       res.status(200).json(data)
     } else {
       res.status(200).json({})

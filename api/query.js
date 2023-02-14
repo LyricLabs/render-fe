@@ -1,6 +1,7 @@
 import {
   useQuery,
   // useMutation,
+  useInfiniteQuery,
 } from 'react-query'
 
 import { rootNames } from '../config/constants'
@@ -18,6 +19,8 @@ import {
   queryGraffle,
   getDomainDeprecatedInfo,
   getUserDefaultDomain,
+  queryFlowNFTsLengthByPath,
+  queryFlowNFTsByPath,
 } from './index'
 import { namehash } from '../utils/hash'
 import axios from 'axios'
@@ -28,7 +31,8 @@ const ROOT_DOMAINS_QUERY = 'getRootDomains'
 const FLOWNS_INFO_QUERY = 'getFlownsInfo'
 const DOMAIN_HISTORY_QUERY = 'getDomainHistory'
 const USER_COLLECTION_QUERY = 'getUserCollection'
-const GET_NFT_INFO = 'getNftInfo'
+const GET_NFT_INFO = 'getETHNftInfo'
+const GET_FLOW_NFT_INFO = 'getFLOWNftInfo'
 
 export const getConnectedState = () => {
   const { appState = {} } = globalStore.useState('appState')
@@ -114,6 +118,7 @@ export const useUserCollection = (address = '') => {
       flowBalance,
       domains,
       tokenBals: bals,
+      defaultDomain: defaultDomain || domains[0].name,
     })
 
     return { collectionIds, initState, flowBalance, domains, defaultDomain }
@@ -178,11 +183,31 @@ export const useRegisterHistory = (parentName = '') => {
   return useQuery(`${DOMAIN_HISTORY_QUERY}-${parentName}`, queryRegisterHistory)
 }
 
-export const useNFTInfo = (cid, id, metadata = null) => {
+export const useNFTInfo = (cid, id, baseURI = null) => {
   const queryNFTInfo = async () => {
+    if (!cid || !baseURI) {
+      return {}
+    }
     try {
-      const data = await axios.get('/api/data/ipfs', { params: { cid, id } })
-      console.log(data)
+      let nftData = null
+      if (baseURI) {
+        const { data } = await axios.get(`${baseURI}/${id}`)
+        nftData = data
+      } else {
+        const { data } = await axios.get('/api/data/ipfs', {
+          params: { cid, id },
+        })
+        nftData = data
+      }
+
+      // console.log(data)
+      const { image } = nftData
+      const imgCID = image.split('ipfs://')[1]
+
+      return {
+        ...nftData,
+        mediaUrl: `https://gateway.pinata.cloud/ipfs/${imgCID}`,
+      }
     } catch (error) {
       console.log(error)
       return {}
@@ -190,4 +215,37 @@ export const useNFTInfo = (cid, id, metadata = null) => {
   }
 
   return useQuery(`${GET_NFT_INFO}-${id}`, queryNFTInfo)
+}
+
+export const useFlowNFTs = (path, address, limit = 10, offset = 0) => {
+  const queryNFTs = async (config) => {
+    try {
+      if (address == null || address.length === 0) {
+        return []
+      }
+      const { pageParam = 1 } = config
+      const offset = (pageParam - 1) * limit
+      const res = await queryFlowNFTsByPath(path, address, limit, offset)
+      const length = await queryFlowNFTsLengthByPath(path, address)
+      if (res && length > 0) {
+        return {
+          nfts: res,
+          nextPage: pageParam + 1,
+          totalPages: Math.ceil(length / limit),
+        }
+      } else {
+        return {}
+      }
+    } catch (error) {
+      console.log(error)
+      return {}
+    }
+  }
+
+  return useInfiniteQuery(`${GET_FLOW_NFT_INFO}`, queryNFTs, {
+    getNextPageParam: (lastPage, pages) => {
+      if (lastPage.nextPage <= lastPage.totalPages) return lastPage.nextPage
+      return undefined
+    },
+  })
 }
