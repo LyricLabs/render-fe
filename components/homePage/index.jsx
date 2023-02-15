@@ -29,7 +29,7 @@ const Component = ({ children }) => {
             <span id='title'></span>
           </Text>
           <Text mt={[4, 4, 5]} h={['64px', '64px', '108px']} textStyle='desc'>
-            {t('flowns.desc')}
+            {t('desc')}
           </Text>
 
         </Box>

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { MediaRenderer } from '@thirdweb-dev/react'
 import { useContract, useContractRead, useContractReads } from 'wagmi'
 
 import { SimpleGrid, Box } from '@chakra-ui/react'

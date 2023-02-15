@@ -1,6 +1,7 @@
 import { Box, Center, Text, SimpleGrid } from '@chakra-ui/react'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { ellipseAddress } from 'utils'
+import Image from 'next/image'
 
 export default function Comp(props) {
   //   const { domainInfo, defaultDomain = '' } = props
@@ -73,7 +74,7 @@ export default function Comp(props) {
                           }}
                         >
                           {chain.iconUrl && (
-                            <img
+                            <Image
                               alt={chain.name ?? 'Chain icon'}
                               src={chain.iconUrl}
                               style={{ width: 12, height: 12 }}

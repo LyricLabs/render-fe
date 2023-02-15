@@ -25,8 +25,6 @@
     "@onflow/types": "^1.0.1",
     "@onflow/util-encode-key": "^1.0.1",
     "@rainbow-me/rainbowkit": "^0.8.1",
-    "@thirdweb-dev/react": "^3.8.2",
-    "@thirdweb-dev/sdk": "^3.8.2",
     "atropos": "^1.0.2",
     "axios": "^0.21.1",
     "big.js": "^6.1.1",

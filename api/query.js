@@ -185,7 +185,7 @@ export const useRegisterHistory = (parentName = '') => {
 
 export const useNFTInfo = (cid, id, baseURI = null) => {
   const queryNFTInfo = async () => {
-    if (!cid || !baseURI) {
+    if (!cid && !baseURI) {
       return {}
     }
     try {
@@ -200,7 +200,7 @@ export const useNFTInfo = (cid, id, baseURI = null) => {
         nftData = data
       }
 
-      // console.log(data)
+      // console.log(nftData, '====')
       const { image } = nftData
       const imgCID = image.split('ipfs://')[1]
 

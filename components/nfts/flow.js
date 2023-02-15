@@ -5,6 +5,7 @@ import { useTranslation } from 'next-i18next'
 import { useFlowNFTs } from 'api/query'
 import LoadingPanel from '../loadingPanel'
 import NFT from './nft'
+import Empty from '../../components/empty'
 
 const Component = ({ path }) => {
   const { t } = useTranslation('common')

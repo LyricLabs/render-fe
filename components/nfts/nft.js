@@ -28,7 +28,7 @@ const Component = ({
   //   const [isPC = true] = useMediaQuery('(min-width: 48em)')
 
   let { data = {}, isLoading } = useNFTInfo(cid, id, baseURI)
-
+  console.log(data, '===data====')
   if (!data || !data.name) {
     data = metadata
   }
