@@ -6,7 +6,7 @@ import {
   Center,
   Box,
   Button,
-  useMediaQuery,
+useMediaQuery,
   useColorMode,
   useTheme,
 } from '@chakra-ui/react'

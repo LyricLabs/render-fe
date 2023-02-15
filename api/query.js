@@ -217,7 +217,7 @@ export const useNFTInfo = (cid, id, baseURI = null) => {
   return useQuery(`${GET_NFT_INFO}-${id}`, queryNFTInfo)
 }
 
-export const useFlowNFTs = (path, address, limit = 10, offset = 0) => {
+export const useFlowNFTs = (path, address, limit = 5) => {
   const queryNFTs = async (config) => {
     try {
       if (address == null || address.length === 0) {
