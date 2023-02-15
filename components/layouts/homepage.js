@@ -30,7 +30,6 @@ export default function Layout({ children }) {
 
   return (
     <>
-     
       <Head>
         <title>Flowns</title>
       </Head>

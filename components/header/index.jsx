@@ -22,10 +22,15 @@ import {
   useDisclosure,
   Tooltip,
   Badge,
+  Button,
 } from '@chakra-ui/react'
 
 import { useTranslation } from 'next-i18next'
-import { MdPowerSettingsNew, MdOutlineFileCopy, MdMenuOpen } from 'react-icons/md'
+import {
+  MdPowerSettingsNew,
+  MdOutlineFileCopy,
+  MdMenuOpen,
+} from 'react-icons/md'
 import { FaExchangeAlt } from 'react-icons/fa'
 import { useUserCollection } from '../../api/query'
 
@@ -43,7 +48,11 @@ const Components = ({ children }) => {
   const [isPC = true] = useMediaQuery('(min-width: 48em)')
   const { t } = useTranslation()
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { isOpen: isMenuOpen, onOpen: onMenuOpen, onClose: onMenuClose } = useDisclosure()
+  const {
+    isOpen: isMenuOpen,
+    onOpen: onMenuOpen,
+    onClose: onMenuClose,
+  } = useDisclosure()
 
   const [user, isLogin, fcl] = useCurrentUser()
 
@@ -106,10 +115,14 @@ const Components = ({ children }) => {
             const { isDefault = false } = texts
             return (
               <MenuItem onClick={() => handleSetDefault(name)} key={idx}>
-                <Flex w='100%' justifyContent='space-between'>
+                <Flex w="100%" justifyContent="space-between">
                   <Text>{name}</Text>
                   {isDefault && (
-                    <Badge textTransform='inherit' fontSize='10px' colorScheme='green'>
+                    <Badge
+                      textTransform="inherit"
+                      fontSize="10px"
+                      colorScheme="green"
+                    >
                       Default
                     </Badge>
                   )}
@@ -126,10 +139,15 @@ const Components = ({ children }) => {
     return (
       <Center>
         {/* <SwitchTheme /> */}
-        <DashBtn
+        <Button
           mx={2}
+          borderRadius="full"
           minW={{ base: '20px', md: '120px' }}
           h={{ base: '36px', md: '36px' }}
+          color="primary"
+          boxShadow="null"
+          colorScheme="gray"
+          fontWeight={700}
           onClick={() => {
             if (!isLogin) {
               fcl.logIn()
@@ -140,32 +158,33 @@ const Components = ({ children }) => {
         >
           {isLogin ? (
             <>
-              {isPC && <>{renderDomain(user.addr)}&nbsp;</>} <Icon as={MdMenuOpen} />
+              {isPC && <>{renderDomain(user.addr)}&nbsp;</>}{' '}
+              <Icon as={MdMenuOpen} />
             </>
           ) : (
             t('connect')
           )}
-        </DashBtn>
+        </Button>
         {isLogin && (
-          <Drawer isOpen={isOpen} placement='right' onClose={onClose}>
+          <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
             <DrawerOverlay />
-            <DrawerContent opacity='0.8'>
+            <DrawerContent opacity="0.8">
               <DrawerCloseButton />
               <DrawerHeader>{t('account')}</DrawerHeader>
 
-              <DrawerBody opacity='0.8'>
+              <DrawerBody opacity="0.8">
                 <Stack spacing={2}>
                   {domains.length > 0 && (
-                    <Flex justifyContent='space-between'>
+                    <Flex justifyContent="space-between">
                       <Text>{t('name')}</Text>
-                      <Flex alignItems='center'>
+                      <Flex alignItems="center">
                         <>{renderDomainList()}</>
                         {domains.length > 1 && (
                           <Tooltip hasArrow label={t('switch.name')}>
                             <IconButton
-                              size='xs'
-                              variant='ghost'
-                              color='primary'
+                              size="xs"
+                              variant="ghost"
+                              color="primary"
                               onClick={() => {
                                 onMenuOpen()
                               }}
@@ -176,14 +195,14 @@ const Components = ({ children }) => {
                       </Flex>
                     </Flex>
                   )}
-                  <Flex justifyContent='space-between'>
+                  <Flex justifyContent="space-between">
                     <Text>{t('address')}</Text>
-                    <Flex alignItems='center'>
-                      <Text fontSize='10px'>{user.addr}</Text>
+                    <Flex alignItems="center">
+                      <Text fontSize="10px">{user.addr}</Text>
                       <IconButton
-                        size='xs'
-                        variant='ghost'
-                        color='primary'
+                        size="xs"
+                        variant="ghost"
+                        color="primary"
                         onClick={() => {
                           onCopy()
                           toast({
@@ -198,9 +217,13 @@ const Components = ({ children }) => {
                       />
                     </Flex>
                   </Flex>
-                  <Flex justifyContent='space-between'>
+                  <Flex justifyContent="space-between">
                     <Text fontWeight={500}>FLOW</Text>
-                    <Text fontStyle='italic' fontWeight={800} textColor='primary'>
+                    <Text
+                      fontStyle="italic"
+                      fontWeight={800}
+                      textColor="primary"
+                    >
                       ₣ {flowBalance}
                     </Text>
                   </Flex>
@@ -215,10 +238,10 @@ const Components = ({ children }) => {
 
               <DrawerFooter>
                 <DashBtn
-                  size='full'
-                  w='100%'
-                  h='40px'
-                  fontSize='20px'
+                  size="full"
+                  w="100%"
+                  h="40px"
+                  fontSize="20px"
                   onClick={() => {
                     fcl.logOut()
                     onClose()
@@ -239,16 +262,20 @@ const Components = ({ children }) => {
     <>
       <Stack
         direction={['column', 'column', 'row']}
-        w='100%'
-        h={{ base: '48px', md: '84px' }}
+        w="100%"
+        h="81px"
         spacing={[2, 2, 10]}
         p={[2, 2, 0]}
       >
-        <Flex w={['100%', '100%', '10%']} h={{ base: '48px', md: '84' }} justify='space-between'>
+        <Flex
+          w={['100%', '100%', '10%']}
+          h={{ base: '48px', md: '84' }}
+          justify="space-between"
+        >
           <Logo />
           {!isPC && renderAccBtn()}
         </Flex>
-        <Center w={['100%', '100%', '80%']} h='100%'>
+        <Center w={['100%', '100%', '80%']} h="100%">
           <Navs links={appNavLinks} />
         </Center>
         {isPC && renderAccBtn()}

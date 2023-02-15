@@ -1,3 +1,9 @@
 {
-  
+  "home.welcome": "Welcome to",
+  "home.render": "Render",
+  "connect.tip": "Connect Wallet",
+  "account": "Account",
+  "search": "Search",
+  "doodles": "Doodles",
+  "no.domain": "No domain name"
 }

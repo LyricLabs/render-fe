@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import dynamic from 'next/dynamic'
 import { useTranslation } from 'next-i18next'
 import {
   Box,
@@ -6,21 +7,12 @@ import {
   Stack,
   SimpleGrid,
   Center,
-  ButtonGroup,
-  IconButton,
-  Tooltip,
-  Button,
   useColorMode,
   useTheme,
   useMediaQuery,
   useBoolean,
 } from '@chakra-ui/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import {
-  AiOutlineGift,
-  AiOutlineShareAlt,
-  AiOutlineHistory,
-} from 'react-icons/ai'
 
 import ReactGA from 'react-ga'
 import { useRouter } from 'next/router'
@@ -39,7 +31,12 @@ import SetInfoModal from '../../../components/setInfoModal'
 import RenewModal from '../../../components/renewModal'
 import Connector from '../../../components/ethConnector'
 import Binder from '../../../components/ethConnector/binder'
-
+// const Binder = dynamic(() => import('components/ethConnector/binder'), {
+//   ssr: false,
+// })
+// const Connector = dynamic(() => import('components/ethConnector'), {
+//   ssr: false,
+// })
 import accountStore from '../../../stores/account'
 
 export default function Home() {

@@ -39,7 +39,7 @@ const overrides = {
     h1: {
       // you can also use responsive styles
       fontSize: ['18px', '18px', '24px'],
-      fontWeight: 500,
+      fontWeight: 700,
       letterSpacing: '-2%',
     },
     h2: {
@@ -55,7 +55,7 @@ const overrides = {
     },
     link: {
       fontSize: ['12px', '12px', '16px'],
-      fontWeight: 300,
+      fontWeight: 500,
     },
     desc: {
       fontSize: '12px',

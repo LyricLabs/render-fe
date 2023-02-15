@@ -88,51 +88,51 @@ export default function Comp(props) {
   const width = 300
   const height = 400
 
-  const renderLabel = (text, link = '', extra = false) => {
-    let Container = Box
-    const isLink = link.length > 0
-    if (isLink) {
-      Container = Link
-    }
+  // const renderLabel = (text, link = '', extra = false) => {
+  //   let Container = Box
+  //   const isLink = link.length > 0
+  //   if (isLink) {
+  //     Container = Link
+  //   }
 
-    return (
-      <Box
-        px={4}
-        height="24px"
-        borderRadius={4}
-        bg="rgba(23, 35, 58, 0.6)"
-        cursor={isLink ? 'pointer' : ''}
-        fontSize={14}
-        lineHeight="24px"
-      >
-        <Container href={link} extra={extra}>
-          <Text textDecoration={isLink ? 'underline' : ''}>{text}</Text>
-        </Container>
-      </Box>
-    )
-  }
+  //   return (
+  //     <Box
+  //       px={4}
+  //       height="24px"
+  //       borderRadius={4}
+  //       bg="rgba(23, 35, 58, 0.6)"
+  //       cursor={isLink ? 'pointer' : ''}
+  //       fontSize={14}
+  //       lineHeight="24px"
+  //     >
+  //       <Container href={link} extra={extra}>
+  //         <Text textDecoration={isLink ? 'underline' : ''}>{text}</Text>
+  //       </Container>
+  //     </Box>
+  //   )
+  // }
 
-  const renderBottom = (time, id) => {
-    const dateStr = timeformater(time, 'DD MMM YYYY')
+  // const renderBottom = (time, id) => {
+  //   const dateStr = timeformater(time, 'DD MMM YYYY')
 
-    return (
-      <Flex
-        justifyContent="space-between"
-        color="rgba(255, 255, 255, 0.4)"
-        fontWeight={500}
-        fontSize="10px"
-      >
-        <Box>
-          <Text>Exp: {dateStr}</Text>
-        </Box>
-        <Box>
-          <Text fontWeight={500} fontStyle="italic">
-            No.{id}
-          </Text>
-        </Box>
-      </Flex>
-    )
-  }
+  //   return (
+  //     <Flex
+  //       justifyContent="space-between"
+  //       color="rgba(255, 255, 255, 0.4)"
+  //       fontWeight={500}
+  //       fontSize="10px"
+  //     >
+  //       <Box>
+  //         <Text>Exp: {dateStr}</Text>
+  //       </Box>
+  //       <Box>
+  //         <Text fontWeight={500} fontStyle="italic">
+  //           No.{id}
+  //         </Text>
+  //       </Box>
+  //     </Flex>
+  //   )
+  // }
 
   return (
     <Atropos
@@ -237,18 +237,20 @@ export default function Comp(props) {
           isOwner ? `Owner: ${t('domain.owner')}` : `Owner: ${owner}`,
           `/account/${owner}`,
         )} */}
-          <Box color="white">
+          {/* <Box color="white">
             {defaultDomain.length == 0
               ? renderLabel(`Owner: ${owner}`, `/account/${owner}`)
               : renderLabel(
                   `Owner: ${defaultDomain}`,
                   `/domain/${defaultDomain}`,
                 )}
-          </Box>
+          </Box> */}
 
           {showBtns && (
             <Box>
               <Button
+                colorScheme="purple"
+                borderRadius="full"
                 onClick={() => {
                   router.push(`/doodles/${name}`)
                 }}
@@ -257,9 +259,9 @@ export default function Comp(props) {
               </Button>
             </Box>
           )}
-          <Box w="100%" p={4} pos="absolute" bottom={0}>
+          {/* <Box w="100%" p={4} pos="absolute" bottom={0}>
             {renderBottom(expiredAt, id)}
-          </Box>
+          </Box> */}
         </VStack>
       </Box>
     </Atropos>

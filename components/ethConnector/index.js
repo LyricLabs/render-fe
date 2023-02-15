@@ -62,7 +62,7 @@ export default function Comp(props) {
                       style={{ display: 'flex', alignItems: 'center' }}
                       type="button"
                     >
-                      {chain.hasIcon && (
+                      {/* {chain.hasIcon && (
                         <div
                           style={{
                             background: chain.iconBackground,
@@ -75,13 +75,15 @@ export default function Comp(props) {
                         >
                           {chain.iconUrl && (
                             <Image
+                              width="100%"
+                              height="158%"
                               alt={chain.name ?? 'Chain icon'}
                               src={chain.iconUrl}
                               style={{ width: 12, height: 12 }}
                             />
                           )}
                         </div>
-                      )}
+                      )} */}
                       {/* {chain.name} */}
                     </button>
 
