@@ -5,11 +5,13 @@ import {
   Box,
   Text,
   Stack,
-  SimpleGrid,
+  Grid,
+  GridItem,
   Center,
   useColorMode,
   useTheme,
   useMediaQuery,
+  Divider,
   useBoolean,
 } from '@chakra-ui/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -130,112 +132,37 @@ export default function Home() {
       {isLoading ? (
         <LoadingPanel />
       ) : (
-        <SimpleGrid w="100%" h="100%" columns={[1, 1, 1]}>
-          <Stack>
-            {/* <Center mb={2}>
-              <ButtonGroup size="lg" isAttached variant="outline" opacity={0.8}>
-                <Tooltip label={t('gift.domain')} hasArrow>
-                  <IconButton
-                    {...dashBtnStyle}
-                    borderRight="none"
-                    aria-label="Transfer you domain"
-                    disabled={!isOwner}
-                    onClick={() => {
-                      setTransferModalConf({
-                        type: 'Domains',
-                        token: domainInfo.name,
-                        isOpen: true,
-                      })
-                    }}
-                    icon={<AiOutlineGift />}
+        <Box px={{ md: '5%', lg: '8%', xl: '16%' }}>
+          <Box mb={4}>
+            <Text fontSize="32px" fontWeight={600}>
+              {defaultDomain ? defaultDomain : user.addr}
+            </Text>
+            <Text fontSize="16px" fontWeight={400} color="textSecondary">
+              {defaultDomain ? user.addr : ''}
+            </Text>
+          </Box>
+          <Divider my={4} />
+          <Grid
+            pt={8}
+            w="100%"
+            h="100%"
+            gap={4}
+            templateRows="repeat(1, 1fr)"
+            templateColumns={{ md: 'repeat(1, 1fr)', lg: 'repeat(3, 1fr)' }}
+          >
+            <GridItem>
+              <Center>
+                <Box width="300px">
+                  <DommainItem
+                    isDetail={true}
+                    domain={domainInfo}
+                    defaultDomain={defaultDomain}
                   />
-                </Tooltip>
-                <Tooltip label={t('refetch.data')} hasArrow>
-                  <IconButton
-                    {...dashBtnStyle}
-                    borderRight="none"
-                    isDisabled={loading}
-                    aria-label="Refresh domain"
-                    onClick={handleRefresh}
-                    icon={<HiOutlineRefresh />}
-                  />
-                </Tooltip>
-                <Tooltip
-                  label={t(historyShow ? 'show.domain' : 'show.history')}
-                  hasArrow
-                >
-                  <IconButton
-                    {...dashBtnStyle}
-                    borderRight="none"
-                    aria-label="Show history"
-                    onClick={() => setToggle('history')}
-                    icon={historyShow ? <BiUndo /> : <AiOutlineHistory />}
-                  />
-                </Tooltip>
-                <Tooltip
-                  label={t(beamShow ? 'show.domain' : 'show.beam')}
-                  hasArrow
-                >
-                  <IconButton
-                    {...dashBtnStyle}
-                    borderRight="none"
-                    aria-label="Show Beam"
-                    onClick={() => setToggle('beam')}
-                    icon={beamShow ? <BiUndo /> : <BiFace />}
-                  />
-                </Tooltip>
-                <SharePop
-                  btnStyle={dashBtnStyle}
-                  baseUrl={`${flownsAppUrl}${router.asPath}`}
-                  content={() => {
-                    const domainName = router.query?.domain.split('.')[0]
-                    const suffixStr = `https://${domainName}.${hostSuffix}`
-                    return `${flownsAppUrl}${router.asPath} ${t(
-                      'share.content',
-                    )} ${suffixStr}`
-                  }}
-                >
-                  <Tooltip label={t('share')} hasArrow>
-                    <IconButton
-                      {...dashBtnStyle}
-                      aria-label="Share your domain page"
-                      icon={<AiOutlineShareAlt />}
-                    />
-                  </Tooltip>
-                </SharePop>
-              </ButtonGroup>
-            </Center> */}
-            <>
-              {/* {historyShow ? (
-                <DomainHistory
-                  domain={domainInfo}
-                  styles={{
-                    minH: ['40px', '400px'],
-                    maxH: '400px',
-                    overflow: 'scroll',
-                  }}
-                />
-              ) : beamShow ? (
-                <DomainBeamAvatar
-                  isOwner={isOwner}
-                  domain={domainInfo}
-                  // styles={{ minH: ['40px', '400px'], maxH: '400px', overflow: 'scroll' }}
-                  cb={refetch}
-                />
-              ) : ( */}
-              <Center minH="400px" maxH="400px">
-                <DommainItem
-                  isDetail={true}
-                  domain={domainInfo}
-                  defaultDomain={defaultDomain}
-                />
-                <Box h="100%"></Box>
+                </Box>
               </Center>
-              {/* )} */}
-            </>
-          </Stack>
+            </GridItem>
 
-          {/* <Stack mt={[5, 5, 0]} w="100%" h="100%" spacing={4}>
+            {/* <Stack mt={[5, 5, 0]} w="100%" h="100%" spacing={4}>
             {isPC && (
               <Center h="48px">
                 <Text fontSize="38px" fontWeight={500}>
@@ -254,29 +181,31 @@ export default function Home() {
               <DomainTabPanel domain={domainInfo} isOwner={isOwner} />
             </Box>
           </Stack> */}
-          {ethAddr ? (
-            <>
-              <DoodlesPanel domainInfo={domainInfo} />
-            </>
-          ) : (
-            <>
-              <Center py={10}>
-                <Connector />
-              </Center>
-              {address && isConnected && (
-                <Binder
-                  w="20%"
-                  flowAddr={user.addr}
-                  domainName={name}
-                  nameHash={nameHash}
-                />
+            <GridItem colSpan={{ sm: 1, lg: 2 }}>
+              {ethAddr ? (
+                <>
+                  <DoodlesPanel domainInfo={domainInfo} />
+                </>
+              ) : (
+                <>
+                  <Center py={10}>
+                    <Stack spacing={4}>
+                      <Connector />
+                      {address && isConnected && (
+                        <Binder
+                          w="20%"
+                          flowAddr={user.addr}
+                          domainName={name}
+                          nameHash={nameHash}
+                        />
+                      )}
+                    </Stack>
+                  </Center>
+                </>
               )}
-            </>
-          )}
-          <Box></Box>
-          <SetInfoModal domain={domainInfo} cb={refetch} />
-          <RenewModal domain={domainInfo} cb={refetch} />
-        </SimpleGrid>
+            </GridItem>
+          </Grid>
+        </Box>
       )}
     </>
   )

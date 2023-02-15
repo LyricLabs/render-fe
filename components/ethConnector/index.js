@@ -1,10 +1,12 @@
-import { Box, Center, Text, SimpleGrid } from '@chakra-ui/react'
+import { Button } from '@chakra-ui/react'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { ellipseAddress } from 'utils'
+import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 
 export default function Comp(props) {
   //   const { domainInfo, defaultDomain = '' } = props
+  const { t } = useTranslation()
 
   return (
     <>
@@ -41,58 +43,67 @@ export default function Comp(props) {
               {(() => {
                 if (!connected) {
                   return (
-                    <button onClick={openConnectModal} type="button">
-                      Connect Wallet
-                    </button>
+                    <Button
+                      colorScheme="purple"
+                      borderRadius="full"
+                      onClick={openConnectModal}
+                      type="button"
+                    >
+                      {t('connect.eth.tip')}
+                    </Button>
                   )
                 }
 
                 if (chain.unsupported) {
                   return (
-                    <button onClick={openChainModal} type="button">
-                      Wrong network
-                    </button>
+                    <Button
+                      colorScheme="purple"
+                      borderRadius="full"
+                      onClick={openChainModal}
+                      type="button"
+                    >
+                      {t('wrong.network')}
+                    </Button>
                   )
                 }
 
                 return (
                   <div style={{ display: 'flex', gap: 12 }}>
-                    <button
-                      onClick={openChainModal}
-                      style={{ display: 'flex', alignItems: 'center' }}
-                      type="button"
-                    >
-                      {/* {chain.hasIcon && (
+                    <Button onClick={openChainModal} type="button">
+                      {chain.hasIcon && (
                         <div
                           style={{
                             background: chain.iconBackground,
-                            width: 12,
-                            height: 12,
+                            width: '16px',
+                            height: '16px',
                             borderRadius: 999,
                             overflow: 'hidden',
-                            marginRight: 4,
                           }}
                         >
                           {chain.iconUrl && (
                             <Image
-                              width="100%"
-                              height="158%"
+                              width="12px"
+                              height="12px"
                               alt={chain.name ?? 'Chain icon'}
                               src={chain.iconUrl}
                               style={{ width: 12, height: 12 }}
                             />
                           )}
                         </div>
-                      )} */}
+                      )}
                       {/* {chain.name} */}
-                    </button>
+                    </Button>
 
-                    <button onClick={openAccountModal} type="button">
+                    <Button
+                      colorScheme="gray"
+                      onClick={openAccountModal}
+                      type="button"
+                    >
                       {ellipseAddress(account.address, 5)}
                       {/* {account.displayBalance
                         ? ` (${account.displayBalance})`
                         : ''} */}
-                    </button>
+                    </Button>
                   </div>
                 )
               })()}

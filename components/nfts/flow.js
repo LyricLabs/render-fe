@@ -35,7 +35,7 @@ const Component = ({ path }) => {
           px={4}
         >
           {hasData ? (
-            <SimpleGrid columns={[2, 2, 3, 4, 5, 6]} spacing={6}>
+            <SimpleGrid columns={[2]} spacing={6}>
               {/* {domains?.map((nft: NFTItem, idx: number) => {
           return <NFT key={idx} nft={nft} />
         })} */}

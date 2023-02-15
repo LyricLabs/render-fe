@@ -5,5 +5,11 @@
   "account": "Account",
   "search": "Search",
   "doodles": "Doodles",
-  "no.domain": "No domain name"
+  "no.domain": "No domain name",
+  "wrong.network": "Wrong network",
+  "connect.eth.tip": "Connect ETH Wallet",
+  "bind.flowns": "Binding with Flowns",
+  "sign.error": "Sign message error",
+  "bind.success": "Bind ETH address with {{name}} success",
+  "bind.failed": "Bind ETH address with {{name}} failed"
 }

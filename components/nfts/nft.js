@@ -19,7 +19,7 @@ const Component = ({
   metadata = {},
   id,
   collectionName,
-  width = '50%',
+  width = '312px',
   mediaType = '',
   baseURI = '',
 }) => {
@@ -95,14 +95,14 @@ const Component = ({
           )}
         </Box>
 
-        <VStack w="100%" h="70px" py={2} px={4}>
+        {/* <VStack w="100%" h="70px" py={2} px={4}>
           <Text w="100%" wordBreak="break-word" noOfLines={2} fontSize="10px">
             {name}
           </Text>
-          {/* <Text w="100%" maxH="30px" overflow="scroll" fontSize="10px">
+          <Text w="100%" maxH="30px" overflow="scroll" fontSize="10px">
             {description}
-          </Text> */}
-        </VStack>
+          </Text>
+        </VStack> */}
         {/* <Flex
           px={2}
           w="100%"

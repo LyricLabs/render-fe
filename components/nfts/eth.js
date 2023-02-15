@@ -60,7 +60,7 @@ const Component = ({
           py={4}
           px={4}
         >
-          <SimpleGrid columns={[4]} spacing={6}>
+          <SimpleGrid columns={[2]} spacing={6}>
             {ids.map((id, idx) => {
               return (
                 <>

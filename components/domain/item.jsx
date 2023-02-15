@@ -31,7 +31,11 @@ export default function Comp(props) {
   const [isPC = true] = useMediaQuery('(min-width: 48em)')
 
   const { user } = accountStore.useState('user')
-  const { domain, defaultDomain = '', isDetail = false } = props
+  const {
+    domain,
+    defaultDomain = '',
+    isDetail = false,
+  } = props
 
   const [isHover, setHover] = useState(false)
   const {
