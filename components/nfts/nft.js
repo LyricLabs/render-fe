@@ -43,7 +43,6 @@ const Component = ({
       minW="200px"
       w="100%"
       maxW={width}
-      h="300px"
       borderRadius={6}
       // border={colorMode == 'light' ? 'none' : '1px solid gray'}
       // bgColor={colorMode == 'light' ? '' : '#253045'}
