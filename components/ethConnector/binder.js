@@ -50,6 +50,10 @@ export default function Comp(props) {
           status: 'success',
         })
       } else {
+        toast({
+          title: t(`bind.failed`, { name: subdomainName }),
+          status: 'error',
+        })
       }
 
       setLoading(false)

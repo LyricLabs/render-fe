@@ -15,6 +15,7 @@ const Component = ({
   baseURI,
   cid = '',
   mediaType = 'image',
+  onChange = () => {},
 }) => {
   const { t } = useTranslation('common')
   //   const { colorMode } = useColorMode()
@@ -24,7 +25,7 @@ const Component = ({
   //     isLoading,
   //     error,
   //   } = useOwnedNFTs(contract, addr)
-
+  const [selected, setSelect] = useState([])
   const contractOpt = {
     address: nft,
     abi: abi,
@@ -46,24 +47,30 @@ const Component = ({
   }
   const { data: ids = [] } = useContractReads({ contracts: opts })
 
-  console.log(ids, isLoading)
+  //   console.log(ids, isLoading)
+  useEffect(() => {
+    onChange(selected)
+  }, [selected])
 
   return (
     <>
       {isLoading ? (
         <LoadingPanel />
       ) : (
-        <Box
-          borderRadius="30px"
-          border="1px solid"
-          borderColor="gray.200"
-          py={4}
-          px={4}
-        >
+        <Box borderRadius="30px" borderColor="gray.200" py={4} px={4}>
           <SimpleGrid columns={[2]} spacing={6}>
             {ids.map((id, idx) => {
+              const idNum = id.toNumber()
               return (
-                <>
+                <Box
+                  p="10px"
+                  cursor="pointer"
+                  borderRadius="20px"
+                  bgColor={
+                    selected.id == idNum ? 'rgba(133, 90, 255, 0.1)' : ''
+                  }
+                  border={selected.id == idNum ? '2px solid #855AFF' : 'none'}
+                >
                   <NFT
                     key={idx}
                     cid={cid}
@@ -71,8 +78,13 @@ const Component = ({
                     mediaType={mediaType}
                     collectionName={collectionName}
                     baseURI={baseURI}
+                    onClick={(imgUrl) => {
+                      const data = { collectionName, id: idNum, imgUrl }
+                      setSelect(data)
+                      // console.log(data)
+                    }}
                   />
-                </>
+                </Box>
               )
             })}
           </SimpleGrid>

@@ -7,6 +7,8 @@ import {
   Center,
   useMediaQuery,
   Button,
+  AvatarGroup,
+  Avatar,
 } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
@@ -31,11 +33,9 @@ export default function Comp(props) {
   const [isPC = true] = useMediaQuery('(min-width: 48em)')
 
   const { user } = accountStore.useState('user')
-  const {
-    domain,
-    defaultDomain = '',
-    isDetail = false,
-  } = props
+  const { domain, defaultDomain = '', isDetail = false } = props
+
+  let { avatarObj = {}, bgObj = {}, items = [] } = props
 
   const [isHover, setHover] = useState(false)
   const {
@@ -51,6 +51,7 @@ export default function Comp(props) {
     // receivable,
     deprecated,
     deprecatedAt,
+    texts = {},
   } = domain
 
   // const isOwner = user.addr === owner
@@ -65,7 +66,22 @@ export default function Comp(props) {
   const showWarning = deprecated || willExpired || isExpired
   const showBtns = (!isPC || isHover) && !isDetail
 
-  let backgroundColor = ''
+  const renderConfigStr = texts['_render'] || '{}'
+  const renderConfig = JSON.parse(renderConfigStr)
+
+  const doodleRender = renderConfig.doodlesRender || null
+
+  if (!isDetail && doodleRender) {
+    avatarObj = doodleRender['Doodles'] || {}
+    bgObj = doodleRender['Dooplicator'] || {}
+    items = doodleRender['Wearables'] || []
+  }
+
+  let backgroundColor = 'gray'
+  if (bgObj && bgObj.id) {
+    backgroundColor =
+      'conic-gradient(from 180deg at 50% 50%, #FFAC99 0deg, #FFD373 56.25deg, #FFE780 121.87deg, #83FFC1 187.5deg, #99E2FF 251.25deg, #DEBEF8 305.62deg, #FFAC99 360deg);'
+  }
 
   // switch (length) {
   //   case 5:
@@ -154,58 +170,22 @@ export default function Comp(props) {
         p={4}
         w={width}
         h={(height / 4, height / 3, height)}
-        bg={'gray'}
+        bg={backgroundColor}
         overflow="hidden"
         borderRadius={6}
         cursor="pointer"
         boxShadow="0px 24px 40px rgba(23, 35, 58, 0.12);"
       >
-        {showWarning && (
-          <Center
-            pos="absolute"
-            h="100px"
-            w="200px"
-            top="-15px"
-            left="-70px"
-            bgColor={
-              deprecated ? 'textPrimary' : willExpired ? 'secondary' : 'error'
-            }
-            opacity={0.7}
-            transform="rotate(-45deg)"
-            textAlign="center"
-          >
-            <Text as="div" pt={6} fontSize={8}>
-              {t(
-                deprecated
-                  ? 'domain.deprecated'
-                  : willExpired
-                  ? 'domain.will.expired'
-                  : 'domain.expried',
-              )}
-            </Text>
-          </Center>
-        )}
         <VStack
           h="100%"
           border="1px dashed rgba(255, 255, 255, 0.2)"
           pos="relative"
           borderRadius={6}
         >
-          {/* <Box
-            w={width}
-            height={width}
-            top={height / 8}
-            left={width / 2}
-            bg="radial-gradient(50% 50% at 50% 50%, #00FFFF 0%, rgba(22, 152, 119, 0) 100%)"
-            pos="absolute"
-            mixBlendMode="overlay"
-          ></Box> */}
-
           <Box
             pos="absolute"
             w="32px"
             h="32px"
-            top="5px"
             right="10px"
             borderRadius={4}
             bg="rgba(23, 35, 58, 0.6)"
@@ -225,18 +205,48 @@ export default function Comp(props) {
             />
           </Box>
 
-          <Box pt={20} px={4}>
+          <Box pt={10}>
+            {avatarObj && avatarObj.id ? (
+              <Box border="5px solid white" borderRadius="10px">
+                <Box
+                  w="185px"
+                  height="185px"
+                  size="xl"
+                  bgImage={avatarObj.imgUrl}
+                  bgSize="contain"
+                />
+              </Box>
+            ) : (
+              <Box h="100px" />
+            )}
+          </Box>
+          <Box px={4}>
             <Text
               w="100%"
               wordBreak="break-word"
               noOfLines={2}
               fontSize="20px"
+              fontWeight={900}
               color="white"
             >
               {name}
             </Text>
           </Box>
 
+          <Box pt={2}>
+            {items.length > 0 ? (
+              <Box>
+                <AvatarGroup size="md" max={5}>
+                  {items.map((nft, idx) => {
+                    const { name, imgUrl } = nft
+                    return <Avatar key={idx} name={name} src={imgUrl} />
+                  })}
+                </AvatarGroup>
+              </Box>
+            ) : (
+              <Box h="100px" />
+            )}
+          </Box>
           {/* {renderLabel(
           isOwner ? `Owner: ${t('domain.owner')}` : `Owner: ${owner}`,
           `/account/${owner}`,
@@ -251,7 +261,7 @@ export default function Comp(props) {
           </Box> */}
 
           {showBtns && (
-            <Box>
+            <Box pos="absolute" h="100%" top="50%">
               <Button
                 colorScheme="purple"
                 borderRadius="full"

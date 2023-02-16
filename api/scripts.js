@@ -348,13 +348,15 @@ const query_nft_datas_by_path = fcl.cdc`
   import MetadataViews from 0xNonFungibleToken
 
   pub struct ViewInfo {
+    pub let id: UInt64
     pub let name: String
     pub let description: String
     pub let thumbnail: AnyStruct{MetadataViews.File}
     pub let rarity: String?
     pub let collectionDisplay: MetadataViews.NFTCollectionDisplay?
 
-    init(name: String, description: String, thumbnail: AnyStruct{MetadataViews.File}, rarity: String?, collectionDisplay: MetadataViews.NFTCollectionDisplay?) {
+    init(id: UInt64, name: String, description: String, thumbnail: AnyStruct{MetadataViews.File}, rarity: String?, collectionDisplay: MetadataViews.NFTCollectionDisplay?) {
+      self.id = id
       self.name = name
       self.description = description
       self.thumbnail = thumbnail
@@ -399,6 +401,7 @@ const query_nft_datas_by_path = fcl.cdc`
         }
 
         let info = ViewInfo(
+          id: tokenID,
           name: display.name,
           description: display.description,
           thumbnail: display.thumbnail,
@@ -409,6 +412,7 @@ const query_nft_datas_by_path = fcl.cdc`
     
       } else {
         let info = ViewInfo(
+          id: tokenID,
           name: storagePathID,
           description: "",
           thumbnail: MetadataViews.HTTPFile(url: ""),

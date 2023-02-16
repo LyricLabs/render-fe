@@ -20,8 +20,8 @@ const FlowNFTs = dynamic(() => import('components/nfts/flow'), {
 })
 
 export default function Comp(props) {
-  const { domainInfo = {}, defaultDomain = '' } = props
-  console.log(domainInfo)
+  const { domainInfo = {}, defaultDomain = '', onChange = () => {} } = props
+  // console.log(domainInfo)
   const { owner = '', addresses = {}, texts = {} } = domainInfo
   // const ethAddr = addresses[1]
   const ethAddr = '0x9854716BB75963c53c4f8cCA97B74B94Db848a71'
@@ -60,7 +60,15 @@ export default function Comp(props) {
       {
         label: 'Wearables',
         icon: 'https://res.cloudinary.com/hxn7xk7oa/image/upload/v1675040916/Doodles2_Wearables_Square_6380ca9885.jpg',
-        content: () => <FlowNFTs addr={owner} path={'wearables'} />,
+        content: () => (
+          <FlowNFTs
+            addr={owner}
+            path={'wearables'}
+            onChange={(selected) => {
+              onChange('Wearables', selected)
+            }}
+          />
+        ),
         chainId: 0,
         address: '0xe81193c424cfd3fb',
       },
@@ -75,6 +83,9 @@ export default function Comp(props) {
               addr={'0x6527045A43D0B8c0cD0E0a42a7c491aA715074C7'}
               cid={'QmPMc4tcBsMqLRuCQtPmPe84bpSjrC3Ky7t3JWuHXYB4aS'}
               collectionName={'Doodles'}
+              onChange={(selected) => {
+                onChange('Doodles', selected)
+              }}
             />
           )
         },
@@ -92,6 +103,9 @@ export default function Comp(props) {
               addr={'0xc7FE0D62a590F8507a783a02029C1Fd5cEC0991a'}
               collectionName={'Dooplicator'}
               baseURI="https://metadata.artlab.xyz/0185fa75-ba04-8156-9fbe-bb39dc263392"
+              onChange={(selected) => {
+                onChange('Dooplicator', selected)
+              }}
             />
           )
         },
@@ -133,7 +147,7 @@ export default function Comp(props) {
             <TabPanel
               p={4}
               key={index}
-              h="calc(100vh - 350px)"
+              h="calc(100vh - 450px)"
               overflow="scroll"
             >
               {tab.content()}

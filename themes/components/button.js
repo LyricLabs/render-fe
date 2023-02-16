@@ -22,6 +22,12 @@ const Button = {
     //     border: "1px solid #CCCCCC",
     //   },
     // },
+
+    solid: {
+      borderRadius: 'full',
+      boxShadow: 'null',
+      fontSize: '16px',
+    },
   },
 
   defaultProps: {

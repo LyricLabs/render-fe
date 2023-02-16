@@ -22,13 +22,14 @@ const Component = ({
   width = '312px',
   mediaType = '',
   baseURI = '',
+  onClick = () => {},
 }) => {
   const { t } = useTranslation('common')
   //   const { colorMode } = useColorMode()
   //   const [isPC = true] = useMediaQuery('(min-width: 48em)')
 
   let { data = {}, isLoading } = useNFTInfo(cid, id, baseURI)
-  console.log(data, '===data====')
+  // console.log(data, '===data====')
   if (!data || !data.name) {
     data = metadata
   }
@@ -47,6 +48,9 @@ const Component = ({
       // border={colorMode == 'light' ? 'none' : '1px solid gray'}
       // bgColor={colorMode == 'light' ? '' : '#253045'}
       boxShadow="0px 24px 40px rgba(23, 35, 58, 0.12);"
+      onClick={() => {
+        onClick(mediaUrl)
+      }}
     >
       <VStack w="100%" h="100%" pos="relative" spacing={1}>
         <Box
