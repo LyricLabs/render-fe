@@ -8,15 +8,14 @@ const Components = ({ children }) => {
   const { colorMode } = useColorMode()
   const router = useRouter()
 
-  const logo =
-    colorMode == 'light' ? '/assets/flowns_logo_light.svg' : '/assets/flowns_logo_dark.svg'
+  const logo = '/assets/logo.svg'
   return (
-    <Center cursor='pointer' width={{ base: '98px', md: '180px' }}>
+    <Center cursor="pointer" width={{ base: '98px', md: '180px' }}>
       <Image
         src={logo}
-        width='100%'
-        height='100%'
-        alt='flowns'
+        width="100%"
+        height="100%"
+        alt="render"
         onClick={() => router.push('/')}
       ></Image>
     </Center>
