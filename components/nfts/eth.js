@@ -63,6 +63,7 @@ const Component = ({
               const idNum = id.toNumber()
               return (
                 <Box
+                  key={idx}
                   p="10px"
                   cursor="pointer"
                   borderRadius="20px"
