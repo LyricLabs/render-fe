@@ -29,7 +29,7 @@ export default function Sidebar() {
           opacity: "0.8",
           height: "calc(100vh - 750px)",
           overflow: "scroll",
-          fontFamily: "Roboto",
+          fontFamily: "Poppins",
         }}
         commandPassThrough={(cmd) => `➜ ${cmd}: ${t("cmd.not.found")}`}
         commands={{

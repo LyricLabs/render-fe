@@ -5,7 +5,7 @@ const obj = {
   global: (props) => ({
     // font
     'html, body': {
-      fontFamily: 'Roboto',
+      fontFamily: 'Poppins',
       width: '100vw',
       height: '100vh',
       color: mode('#17233A', '#fbfbfb')(props),

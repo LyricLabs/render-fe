@@ -4,8 +4,10 @@ const Fonts = () => (
   <Global
     styles={`
       @font-face {
-        font-family: 'Roboto';
-        src: url('/fonts/RobotoMono.ttf') format('truetype');
+        font-family: 'Poppins';
+        src: url('/fonts/Poppins-Bold.ttf') format('truetype');
+        src: url('/fonts/Poppins-Medium.ttf') format('truetype');
+        src: url('/fonts/Poppins-Regular.ttf') format('truetype');
       }
 
       body::-webkit-scrollbar {

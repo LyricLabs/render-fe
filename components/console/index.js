@@ -21,14 +21,6 @@ export default function Console() {
   const { rootDomains } = domainStore.useState('rootDomains')
   // const [locking, setLocking] = useState(false)
 
-  const cmdInputStyle = {
-    color: textPrimary,
-    lineHeight: '30px',
-    fontFamily: 'Roboto',
-    lineHeight: '30px',
-  }
-
- 
 
   const queryDomain = async (rootName, args) => {
     const terminal = progressTerminalRef.current
