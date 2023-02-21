@@ -62,9 +62,10 @@ export default function Comp(props) {
   const duration = expiredAt - currentTime
   const isExpired = currentTime - expiredAt > 0
   const willExpired = !isExpired && duration < oneWeek && duration > 0
+  const isOwner = user.addr == owner
 
   const showWarning = deprecated || willExpired || isExpired
-  const showBtns = (!isPC || isHover) && !isDetail
+  const showBtns = (!isPC || isHover) && !isDetail && isOwner
 
   const renderConfigStr = texts['_render'] || '{}'
   const renderConfig = JSON.parse(renderConfigStr)

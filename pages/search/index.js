@@ -6,7 +6,12 @@ import ReactGA from 'react-ga'
 import { useRouter } from 'next/router'
 import Spinner from 'react-cli-spinners'
 
-import { validateAddress, validateDomain, validateEmoji, toast } from '../../utils'
+import {
+  validateAddress,
+  validateDomain,
+  validateEmoji,
+  toast,
+} from '../../utils'
 import { calcHash, getDomainAvaliableWithRaw, getDomainPrice } from '../../api'
 import { setRenewerPanelStatus } from '../../stores/modal'
 import { chineseReg } from '../../utils/hash'
@@ -15,7 +20,6 @@ import RenewModal from '../../components/renewModal'
 import Layout from '../../components/layouts/appBase'
 import { fnId, gaCode, isBrowser } from '../../config/constants'
 import Logo from '../../components/logos/logoV'
-import Btn from '../../components/dashBtn'
 
 export default function Home() {
   const { t } = useTranslation()
@@ -86,7 +90,11 @@ export default function Home() {
       return false
     }
 
-    if (name.indexOf('-') >= 0 || name.indexOf('_') >= 0 || chineseReg.test(name)) {
+    if (
+      name.indexOf('-') >= 0 ||
+      name.indexOf('_') >= 0 ||
+      chineseReg.test(name)
+    ) {
       setInvalidError(t('name.not.open'))
       return false
     }
@@ -148,18 +156,18 @@ export default function Home() {
   }
 
   return (
-    <Box h='100%' w='100%'>
-      <Stack w='100%' spacing={4}>
+    <Box h="100%" w="100%" pt="60px">
+      <Stack w="100%" spacing={4}>
         <Center>
-          <Logo width='250px' height='240px' opacity='0.8' />
+          <Logo width="250px" height="240px" opacity="0.8" />
         </Center>
-        <Center w='100%'>
-          <Flex w={['95%', '80%', '40%', '40%']} mx={[0, 2, 4, 0]} size='lg'>
+        <Center w="100%">
+          <Flex w={['95%', '80%', '40%', '40%']} mx={[0, 2, 4, 0]} size="lg">
             <Input
               value={value}
               isInvalid={invalid}
-              variant='flushed'
-              errorBorderColor='secondary'
+              variant="flushed"
+              errorBorderColor="secondary"
               mx={1}
               placeholder={t('search.placeholder')}
               onChange={(e) => {
@@ -168,39 +176,45 @@ export default function Home() {
                 setValue(inputVal.toLowerCase())
               }}
             ></Input>
-            <Btn
-              id='search'
+            <Button
+              id="search"
+              colorScheme="purple"
               isLodaing={loading}
               isDisabled={disable}
-              size='md'
+              size="md"
               onClick={handleSearch}
             >
               {t('search')}
-            </Btn>
+            </Button>
           </Flex>
         </Center>
         <Center>
           {invalid && (
-            <Text opacity='0.6' textAlign='left'>
+            <Text opacity="0.6" textAlign="left">
               {error}
             </Text>
           )}
         </Center>
         {loading && (
           <Center>
-            <Spinner type='dots' />
+            <Spinner type="dots" />
           </Center>
         )}
         {domain && domain.name && (
-          <Center w='100%'>
-            <Flex w={['95%', '80%', '40%', '40%']} px={4} h='40px' justifyContent='space-between'>
-              <Text lineHeight='40px'>{domain.name}</Text>
+          <Center w="100%">
+            <Flex
+              w={['95%', '80%', '40%', '40%']}
+              px={4}
+              h="40px"
+              justifyContent="space-between"
+            >
+              <Text lineHeight="40px">{domain.name}</Text>
               <Box>
                 {domain.available ? (
                   <Button
-                    color='primary'
-                    variant='ghost'
-                    size='xs'
+                    color="primary"
+                    variant="ghost"
+                    size="xs"
                     onClick={() => {
                       setRenewerPanelStatus(true)
                       ReactGA.modalview(`/register/${domain.name}/`)
@@ -210,15 +224,15 @@ export default function Home() {
                   </Button>
                 ) : (
                   <Button
-                    color='primary'
-                    variant='link'
-                    size='xs'
-                    lineHeight='38px'
+                    color="primary"
+                    variant="link"
+                    size="xs"
+                    lineHeight="38px"
                     onClick={() => {
-                      router.push(`/domain/${domain.name}`)
+                      router.push(`/doodles/${domain.name}`)
                     }}
                   >
-                    {t('detail')}
+                    {t('show.render')}
                     {'->'}
                   </Button>
                 )}

@@ -58,7 +58,7 @@ const Components = ({ children }) => {
 
   const { onCopy } = useClipboard(user?.addr)
 
-  const { refetch } = useUserCollection(user?.addr)
+  const { refetch } = useUserCollection(user?.addr, true)
 
   const { flowBalance, domains, tokenBals } = accountStore.useState(
     'flowBalance',
@@ -237,7 +237,7 @@ const Components = ({ children }) => {
               </DrawerBody>
 
               <DrawerFooter>
-                <DashBtn
+                <Button
                   size="full"
                   w="100%"
                   h="40px"
@@ -249,7 +249,7 @@ const Components = ({ children }) => {
                   leftIcon={<Icon as={MdPowerSettingsNew} />}
                 >
                   {t('logout')}
-                </DashBtn>
+                </Button>
               </DrawerFooter>
             </DrawerContent>
           </Drawer>
@@ -266,6 +266,7 @@ const Components = ({ children }) => {
         h="81px"
         spacing={[2, 2, 10]}
         p={[2, 2, 0]}
+        boxShadow="base"
       >
         <Flex
           w={['100%', '100%', '10%']}

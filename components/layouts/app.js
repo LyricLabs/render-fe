@@ -41,7 +41,7 @@ export default function Layout({ children }) {
     data = {},
     refetch,
     isLoading: fetchLoading,
-  } = useUserCollection(addr)
+  } = useUserCollection(addr, true)
   const { collectionIds = [], initState = false } = data
 
   const [loading, setLoading] = useState(false)

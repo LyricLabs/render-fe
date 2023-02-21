@@ -56,13 +56,13 @@ export default function Home() {
       {isLoading ? (
         <LoadingPanel />
       ) : (
-        <Box px={{ md: '5%', base: '15%', lg: '8%', xl: '16%' }} mt="60px">
+        <Box px={{ md: '5%', base: '15%', lg: '8%', xl: '16%' }} pt="60px">
           <Box mb={4}>
             <Text fontSize="32px" fontWeight={600}>
-              {defaultDomain ? defaultDomain : user.addr}
+              {defaultDomain ? defaultDomain : address}
             </Text>
             <Text fontSize="16px" fontWeight={400} color="textSecondary">
-              {defaultDomain ? user.addr : ''}
+              {defaultDomain ? address : ''}
             </Text>
           </Box>
           <Divider my={8} />

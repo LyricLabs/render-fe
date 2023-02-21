@@ -1,6 +1,11 @@
 // import colors from './colors';
 import { mode } from '@chakra-ui/theme-tools'
 
+const bgConfig = {
+  backgroundRepeat: 'no-repeat',
+  // backgroundSize: 'cover',
+}
+
 const obj = {
   global: (props) => ({
     // font
@@ -16,31 +21,13 @@ const obj = {
       height: '100vh',
       with: '100vw',
     },
-    '.Typewriter__cursor': {
-      color: mode('#17233A', '#ffffff')(props),
+    '.home': {
+      backgroundImage: 'url(/assets/home.svg)',
+      ...bgConfig,
     },
-    '.roadmap': {
-      scrollbarWidth: 'none' /* firefox */,
-      overflowX: 'hidden',
-      overflowY: 'auto',
-      '::-webkit-scrollbar': {
-        display: 'none' /* Chrome Safari */,
-      },
-    },
-    '.markdown': {
-      a: {
-        color: 'primary',
-        cursor: 'pointer',
-        textDecoration: 'underline',
-        fontWeight: 900,
-      },
-      blockquote: {
-        padding: '10px 5px',
-        fontStyle: 'italic',
-      },
-      p: {
-        marginBottom: '10px',
-      },
+    '.grid': {
+      backgroundImage: 'url(/assets/grid.svg)',
+      ...bgConfig,
     },
   }),
 }

@@ -72,14 +72,18 @@ const Comp = ({ domains = [], bals = {}, show = [], cb }) => {
         })
       } else {
         toast({
-          title: isRemove ? t('remove.default.error') : t('set.error', { type: t('default.name') }),
+          title: isRemove
+            ? t('remove.default.error')
+            : t('set.error', { type: t('default.name') }),
           status: 'error',
         })
       }
     } catch (error) {
       console.log(error)
       toast({
-        title: isRemove ? t('remove.default.error') : t('set.error', { type: t('default.name') }),
+        title: isRemove
+          ? t('remove.default.error')
+          : t('set.error', { type: t('default.name') }),
         status: 'error',
       })
       ReactGA.event({
@@ -126,11 +130,16 @@ const Comp = ({ domains = [], bals = {}, show = [], cb }) => {
 
   return (
     <>
-      <Accordion allowMultiple allowToggle variant='unstyle' defaultIndex={[0, 1]}>
+      <Accordion
+        allowMultiple
+        allowToggle
+        variant="unstyle"
+        defaultIndex={[0, 1]}
+      >
         {vaultKeys.length > 1 && (
           <AccordionItem>
             <AccordionButton px={0}>
-              <Box flex='1' textAlign='left'>
+              <Box flex="1" textAlign="left">
                 {t('other.tokens')}
               </Box>
               <AccordionIcon />
@@ -142,19 +151,24 @@ const Comp = ({ domains = [], bals = {}, show = [], cb }) => {
 
                   return (
                     <ListItem key={idx} fontWeight={500}>
-                      <Flex justifyContent='space-between' alignItems='center'>
+                      <Flex justifyContent="space-between" alignItems="center">
                         <TokenLogo symbol={key} size={4} />
-                        <Text as='Flex' fontStyle='italic' fontWeight='bold' alignItems='center'>
+                        <Text
+                          as="Flex"
+                          fontStyle="italic"
+                          fontWeight="bold"
+                          alignItems="center"
+                        >
                           {bal || '0.00000'}
 
                           {bal == null ? (
                             <Tooltip label={t('init.token', { token: key })}>
                               <IconButton
                                 ml={2}
-                                color='primary'
-                                size='xs'
-                                variant='ghost'
-                                aria-label='Init token vault'
+                                color="primary"
+                                size="xs"
+                                variant="ghost"
+                                aria-label="Init token vault"
                                 isLoading={tokenLoading}
                                 onClick={() => {
                                   // setTransferModalConf({
@@ -168,14 +182,16 @@ const Comp = ({ domains = [], bals = {}, show = [], cb }) => {
                               />
                             </Tooltip>
                           ) : (
-                            <Tooltip label={t('transfer.token', { token: key })}>
+                            <Tooltip
+                              label={t('transfer.token', { token: key })}
+                            >
                               <IconButton
                                 ml={2}
-                                color='primary'
-                                size='xs'
-                                variant='ghost'
+                                color="primary"
+                                size="xs"
+                                variant="ghost"
                                 isLoading={tokenLoading}
-                                aria-label='Transfer you domain'
+                                aria-label="Transfer you domain"
                                 onClick={() => {
                                   setTransferModalConf({
                                     type: 'FT',
@@ -200,23 +216,23 @@ const Comp = ({ domains = [], bals = {}, show = [], cb }) => {
         {domainNum >= 1 && (
           <AccordionItem>
             <AccordionButton px={0}>
-              <Flex flex='1'>
+              <Flex flex="1">
                 <Text>{t('owned.domains')}</Text>
                 {/* <Text>{domainNum}</Text> */}
               </Flex>
               <AccordionIcon />
             </AccordionButton>
-            <AccordionPanel pb={4} px={0} maxh='500px' overflow='scroll'>
+            <AccordionPanel pb={4} px={0} maxh="500px" overflow="scroll">
               <List spacing={2}>
                 {domains.map((domain, idx) => {
                   const { name, texts = {} } = domain
                   const { isDefault = false } = texts
 
                   return (
-                    <ListItem key={idx} color='primary' fontWeight={500}>
-                      <Flex justifyContent='space-between'>
+                    <ListItem key={idx} color="primary" fontWeight={500}>
+                      <Flex justifyContent="space-between">
                         <Link href={`/domain/${name}`}>
-                          <Text cursor='pointer' textDecoration='underline'>
+                          <Text cursor="pointer" textDecoration="underline">
                             {name}
                           </Text>
                         </Link>
@@ -224,10 +240,10 @@ const Comp = ({ domains = [], bals = {}, show = [], cb }) => {
                           <Tooltip hasArrow label={t('remove.default')}>
                             <Badge
                               py={0.5}
-                              textTransform='inherit'
-                              fontSize='10px'
-                              colorScheme='green'
-                              cursor='pointer'
+                              textTransform="inherit"
+                              fontSize="12px"
+                              colorScheme="purple"
+                              cursor="pointer"
                               onClick={() => {
                                 handleSetDefault(name, true)
                               }}
@@ -239,10 +255,10 @@ const Comp = ({ domains = [], bals = {}, show = [], cb }) => {
                           <Tooltip hasArrow label={t('set.default')}>
                             <IconButton
                               ml={2}
-                              color='primary'
-                              size='xs'
-                              variant='ghost'
-                              aria-label='Set to default'
+                              color="primary"
+                              size="xs"
+                              variant="ghost"
+                              aria-label="Set to default"
                               isLoading={loading}
                               onClick={() => {
                                 handleSetDefault(name)

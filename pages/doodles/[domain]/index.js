@@ -161,7 +161,7 @@ export default function Home() {
       {isLoading ? (
         <LoadingPanel />
       ) : (
-        <Box px={{ md: '5%', lg: '8%', xl: '16%' }}>
+        <Box px={{ md: '5%', lg: '8%', xl: '16%' }} pt="40px">
           <Box mb={12}>
             <Link href={'/account'}>
               <Button
@@ -186,7 +186,7 @@ export default function Home() {
               <Button
                 colorScheme="purple"
                 isLoading={loading}
-                disabled={!isChange}
+                disabled={!isChange || !isOwner}
                 onClick={() => handleSave()}
               >
                 {t('save')}
@@ -253,9 +253,9 @@ export default function Home() {
                     }}
                   />
                 </>
-              ) : (
+              ) : isOwner ? (
                 <>
-                  <Center h='100%' py={10}>
+                  <Center h="100%" py={10}>
                     <Stack spacing={4}>
                       <Connector />
                       {address && isConnected && (
@@ -269,6 +269,8 @@ export default function Home() {
                     </Stack>
                   </Center>
                 </>
+              ) : (
+                <></>
               )}
             </GridItem>
           </Grid>

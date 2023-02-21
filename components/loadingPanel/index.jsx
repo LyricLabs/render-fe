@@ -5,7 +5,7 @@ export default function Comp(props) {
   const { tip } = props
 
   return (
-    <Center>
+    <Center h='80vh'>
       <Text>
         <Spinner /> &nbsp;&nbsp; {tip}
       </Text>

@@ -73,7 +73,7 @@ export const useRootDomains = () => {
   return useQuery(ROOT_DOMAINS_QUERY, getRootDomains)
 }
 
-export const useUserCollection = (address = '') => {
+export const useUserCollection = (address = '', flag = false) => {
   const queryUserCollection = async () => {
     if (address == null || address.length === 0) {
       return { collectionIds: [], initState: false }
@@ -113,13 +113,15 @@ export const useUserCollection = (address = '') => {
     }
     const flowBalance = await queryFlowBalence(address)
     const bals = await queryBals(address)
-    accountStore.setState({
-      domainIds: collectionIds,
-      flowBalance,
-      domains,
-      tokenBals: bals,
-      defaultDomain: defaultDomain || domains[0].name,
-    })
+    if (flag) {
+      accountStore.setState({
+        domainIds: collectionIds,
+        flowBalance,
+        domains,
+        tokenBals: bals,
+        defaultDomain: defaultDomain || domains[0].name,
+      })
+    }
 
     return { collectionIds, initState, flowBalance, domains, defaultDomain }
   }
