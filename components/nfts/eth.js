@@ -32,7 +32,7 @@ const Component = ({
     functionName: 'balanceOf',
     args: [addr],
   }
-  const { data: balance = 0, isLoading } = useContractRead(contractOpt)
+  const { data: balance = 0 } = useContractRead(contractOpt)
 
   //   console.log(id)
   const opts = []
@@ -45,7 +45,7 @@ const Component = ({
       args: [addr, i],
     })
   }
-  const { data: ids = [] } = useContractReads({ contracts: opts })
+  const { data: ids = [], isLoading } = useContractReads({ contracts: opts })
 
   //   console.log(ids, isLoading)
   useEffect(() => {

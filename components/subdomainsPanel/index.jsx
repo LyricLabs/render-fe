@@ -64,9 +64,10 @@ import {
 export default function Comp(props) {
   const { t } = useTranslation()
   const theme = useTheme()
+
+  const { colorMode } = useColorMode()
   const primary =
     colorMode === 'light' ? theme.colors.lightPrimary : theme.colors.primary
-  const { colorMode } = useColorMode()
 
   const { onOpen, onClose, isOpen } = useDisclosure()
   const { domain, styles = null, isOwner = false } = props

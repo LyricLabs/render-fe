@@ -14,13 +14,12 @@ const queryIpfs = async (req, res) => {
           Accept: 'text/plain',
         },
       })
-      // console.log(data)
       res.status(200).json(data)
     } else {
       res.status(200).json({})
     }
   } catch (error) {
-    console.log(error)
+    console.log(error.msg)
     res.status(500).json({ error: error.toString(), msg: 'Error' })
   }
 }

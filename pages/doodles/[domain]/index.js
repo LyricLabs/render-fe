@@ -83,8 +83,6 @@ export default function Home() {
   const [isChange, setChange] = useState(false)
   const [selected, setSelected] = useState({})
 
-  console.log(ethAddr, 'ethAddr')
-
   if (domain === undefined) {
     return ''
   }
@@ -115,9 +113,17 @@ export default function Home() {
 
       const res = await setDomainText(nameHash, '_render', renderConfig)
       if (res && res.status == 4) {
-        console.log(res)
+        toast({
+          title: t(`render.success`, { name: name }),
+          status: 'success',
+        })
+        router.push('/account')
       } else {
         console.log(res)
+        toast({
+          title: t(`render.failed`),
+          status: 'error',
+        })
       }
       setLoading(false)
       // setSelected({})
@@ -176,7 +182,7 @@ export default function Home() {
           <Flex justify="space-between" align="center">
             <Box mb={4}>
               <Text fontSize="32px" fontWeight={600}>
-                {defaultDomain ? defaultDomain : user.addr}
+                {domain}
               </Text>
               <Text fontSize="16px" fontWeight={400} color="textSecondary">
                 {t('render.desc')}

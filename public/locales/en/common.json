@@ -17,5 +17,7 @@
   "bind.success": "Bind ETH address with {{name}} success",
   "bind.failed": "Bind ETH address with {{name}} failed",
   "search.placeholder": "Search domain",
-  "show.doodles.render": "Show Doodles render"
+  "show.doodles.render": "Show Doodles render",
+  "render.success": "Render {{name}} success",
+  "render.failed": "Render failed"
 }

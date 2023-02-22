@@ -80,7 +80,7 @@ export default function Comp(props) {
             <EthNFTs
               nft={'0x8a90cab2b38dba80c64b7734e58ee1db38b8992e'}
               abi={doodleABI}
-              addr={'0x6527045A43D0B8c0cD0E0a42a7c491aA715074C7'}
+              addr={'0xFa4D5258804D7723eb6A934c11b1bd423bC31623'}
               cid={'QmPMc4tcBsMqLRuCQtPmPe84bpSjrC3Ky7t3JWuHXYB4aS'}
               collectionName={'Doodles'}
               onChange={(selected) => {

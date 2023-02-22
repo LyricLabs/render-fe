@@ -91,11 +91,11 @@ const Component = ({
                 objectFit="contain"
               />
             )}
-          {!mediaType && (
+          {/* {!mediaType && (
             <Center h="100%" w="100%">
               {t('media.not.found')}
             </Center>
-          )}
+          )} */}
         </Box>
 
         {/* <VStack w="100%" h="70px" py={2} px={4}>

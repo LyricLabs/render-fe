@@ -242,6 +242,7 @@ const Components = ({ children }) => {
                   w="100%"
                   h="40px"
                   fontSize="20px"
+                  opacity={0.6}
                   onClick={() => {
                     fcl.logOut()
                     onClose()
@@ -261,6 +262,7 @@ const Components = ({ children }) => {
   return (
     <>
       <Stack
+        bgColor="white"
         direction={['column', 'column', 'row']}
         w="100%"
         h="81px"

@@ -78,7 +78,7 @@ export default function Comp(props) {
     items = doodleRender['Wearables'] || []
   }
 
-  let backgroundColor = 'gray'
+  let backgroundColor = '#ADAAC3'
   if (bgObj && bgObj.id) {
     backgroundColor =
       'conic-gradient(from 180deg at 50% 50%, #FFAC99 0deg, #FFD373 56.25deg, #FFE780 121.87deg, #83FFC1 187.5deg, #99E2FF 251.25deg, #DEBEF8 305.62deg, #FFAC99 360deg);'

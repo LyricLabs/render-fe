@@ -33,8 +33,9 @@ import { setDetailModal } from '../../stores/detailModal'
 export default function Comp(props) {
   const { t } = useTranslation()
   const theme = useTheme()
-  const primary = colorMode === 'light' ? theme.colors.lightPrimary : theme.colors.primary
   const { colorMode } = useColorMode()
+  const primary = colorMode === 'light' ? theme.colors.lightPrimary : theme.colors.primary
+
 
   const { domain, styles = null, field = 'profile', isOwner = false } = props
   const [loadingIdx, setLoadingIdx] = useState(-1)

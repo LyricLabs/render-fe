@@ -31,8 +31,9 @@ import { useDomainInfo } from '../../api/query'
 export default function Comp(props) {
   const { t } = useTranslation()
   const theme = useTheme()
-  const primary = colorMode === 'light' ? theme.colors.lightPrimary : theme.colors.primary
   const { colorMode } = useColorMode()
+  const primary = colorMode === 'light' ? theme.colors.lightPrimary : theme.colors.primary
+
 
   const { domain, styles = null, isOwner } = props
   const [loading, setLoading] = useState(false)

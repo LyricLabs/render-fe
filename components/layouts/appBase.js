@@ -22,7 +22,7 @@ export default function Layout({ children }) {
   const { refetch } = useUserCollection(addr, true)
   let pathname = router.pathname
   const pathArr = pathname.split('/')
-  
+
   const [isPC = true] = useMediaQuery('(min-width: 48em)')
   let className = 'none'
 
@@ -43,14 +43,14 @@ export default function Layout({ children }) {
       <Head>
         <title>Flowns</title>
       </Head>
-      <main>
+      <main className={className}>
         <Header />
         <Container
           w="100%"
           h="calc(100vh - 81px)"
           maxW="1440px"
           overflow="scroll"
-          className={className}
+          
         >
           {renderChildren()}
         </Container>
