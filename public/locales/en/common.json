@@ -19,5 +19,16 @@
   "search.placeholder": "Search domain",
   "show.doodles.render": "Show Doodles render",
   "render.success": "Render {{name}} success",
-  "render.failed": "Render failed"
+  "render.failed": "Render failed",
+  "deposit": "Deposit",
+  "cancel": "Cancel",
+  "withdraw": "Withdraw",
+  "select.token": "Chose your token",
+  "token": "Token",
+  "tokens": "Tokens",
+  "amount": "Amount",
+  "balance": "Balance",
+  "transfer": "Transfer",
+  "transfer.token": "Transfer {{token}} to your friend",
+  "to.placeholder": "Flowns domain name or Flow address"
 }
