@@ -107,7 +107,7 @@ export default function Layout({ children }) {
   return (
     <>
       <Head>
-        <title>Flowns</title>
+        <title>Render</title>
       </Head>
       <main>
         <Header />

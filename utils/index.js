@@ -40,10 +40,10 @@ export const fclinit = () => {
     .put('0xFlowToken', flowTokenAddr)
     .put('0xFUSD', fusdTokenAddr)
     // .put('grpc.metadata', { api_key: alchemyKey })
-    .put('app.detail.title', 'Flowns')
+    .put('app.detail.title', 'Render')
     .put(
       'app.detail.icon',
-      '',
+      'https://trello.com/1/cards/63f736ded346d69d511e1bad/attachments/63f736ee3b2b85bd57cedd8d/previews/63f736ef3b2b85bd57cedde5/download/Render.png',
     )
 
   initWalletConnect()
