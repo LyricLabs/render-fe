@@ -213,6 +213,7 @@ export default function Comp(props) {
             {avatarObj && avatarObj.id ? (
               <Box border="5px solid white" borderRadius="10px">
                 <Box
+                  borderRadius="10px"
                   w="185px"
                   height="185px"
                   size="xl"
@@ -243,7 +244,7 @@ export default function Comp(props) {
                 <AvatarGroup size="md" max={5}>
                   {items.map((nft, idx) => {
                     const { name, imgUrl } = nft
-                    return <Avatar  key={idx} src={imgUrl} />
+                    return <Avatar key={idx} src={imgUrl} />
                   })}
                 </AvatarGroup>
               </Box>
