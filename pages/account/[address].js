@@ -21,7 +21,7 @@ export default function Home() {
   const { address = '' } = router.query
   const { user } = accountStore.useState('user')
   const isUser = user.addr === address
-  const { data = {}, isLoading } = useUserCollection(address)
+  const { data = {}, isLoading } = useUserCollection(address, false)
   const { domains = [], flowBalance = 0, defaultDomain } = data
 
   const hasDomain = domains.length > 0

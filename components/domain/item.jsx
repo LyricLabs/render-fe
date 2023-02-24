@@ -79,9 +79,12 @@ export default function Comp(props) {
   }
 
   let backgroundColor = '#ADAAC3'
+  if (isDetail) {
+    backgroundColor = 'linear-gradient(to bottom right, #f1c6c7, #e8c6f9)'
+  }
   if (bgObj && bgObj.id) {
     backgroundColor =
-      'conic-gradient(from 180deg at 50% 50%, #FFAC99 0deg, #FFD373 56.25deg, #FFE780 121.87deg, #83FFC1 187.5deg, #99E2FF 251.25deg, #DEBEF8 305.62deg, #FFAC99 360deg);'
+      'linear-gradient(180deg, rgba(255, 172, 153, 0.8) 0%, rgba(255, 211, 115, 0.8) 15.62%, rgba(255, 231, 128, 0.8) 33.85%, rgba(131, 255, 193, 0.8) 52.08%, rgba(153, 226, 255, 0.8) 69.79%, rgba(222, 190, 248, 0.8) 84.9%);'
   }
 
   // switch (length) {
@@ -240,7 +243,7 @@ export default function Comp(props) {
                 <AvatarGroup size="md" max={5}>
                   {items.map((nft, idx) => {
                     const { name, imgUrl } = nft
-                    return <Avatar key={idx} name={name} src={imgUrl} />
+                    return <Avatar  key={idx} src={imgUrl} />
                   })}
                 </AvatarGroup>
               </Box>

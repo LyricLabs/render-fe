@@ -131,9 +131,9 @@ export default function Comp(props) {
       // },
     ]
     return (
-      <Tabs>
+      <Tabs w="100%" colorScheme="purple">
         <Flex w="100" justify={['space-between']}>
-          <TabList>
+          <TabList w="100%">
             {doodlesNFTs.map((tab, index) => (
               <IconTab key={index} tabConfig={tab}>
                 {tab.label}

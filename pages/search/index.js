@@ -232,7 +232,7 @@ export default function Home() {
                       router.push(`/doodles/${domain.name}`)
                     }}
                   >
-                    {t('show.render')}
+                    {t('show.doodle.render')}
                     {'->'}
                   </Button>
                 )}
