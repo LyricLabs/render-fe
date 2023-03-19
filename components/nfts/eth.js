@@ -5,6 +5,7 @@ import { SimpleGrid, Box } from '@chakra-ui/react'
 
 import { useTranslation } from 'next-i18next'
 import LoadingPanel from 'components/loadingPanel'
+import Empty from 'components/empty'
 import NFT from './nft'
 
 const Component = ({
@@ -58,37 +59,41 @@ const Component = ({
         <LoadingPanel />
       ) : (
         <Box borderRadius="30px" borderColor="gray.200" py={4} px={4}>
-          <SimpleGrid columns={[2]} spacing={6}>
-            {ids.map((id, idx) => {
-              const idNum = id.toNumber()
-              return (
-                <Box
-                  key={idx}
-                  p="10px"
-                  cursor="pointer"
-                  borderRadius="20px"
-                  bgColor={
-                    selected.id == idNum ? 'rgba(133, 90, 255, 0.1)' : ''
-                  }
-                  border={selected.id == idNum ? '2px solid #855AFF' : 'none'}
-                >
-                  <NFT
+          {ids.length > 0 ? (
+            <SimpleGrid columns={[2]} spacing={6}>
+              {ids.map((id, idx) => {
+                const idNum = id.toNumber()
+                return (
+                  <Box
                     key={idx}
-                    cid={cid}
-                    id={id.toNumber()}
-                    mediaType={mediaType}
-                    collectionName={collectionName}
-                    baseURI={baseURI}
-                    onClick={(imgUrl) => {
-                      const data = { collectionName, id: idNum, imgUrl }
-                      setSelect(data)
-                      // console.log(data)
-                    }}
-                  />
-                </Box>
-              )
-            })}
-          </SimpleGrid>
+                    p="10px"
+                    cursor="pointer"
+                    borderRadius="20px"
+                    bgColor={
+                      selected.id == idNum ? 'rgba(133, 90, 255, 0.1)' : ''
+                    }
+                    border={selected.id == idNum ? '2px solid #855AFF' : 'none'}
+                  >
+                    <NFT
+                      key={idx}
+                      cid={cid}
+                      id={id.toNumber()}
+                      mediaType={mediaType}
+                      collectionName={collectionName}
+                      baseURI={baseURI}
+                      onClick={(imgUrl) => {
+                        const data = { collectionName, id: idNum, imgUrl }
+                        setSelect(data)
+                        // console.log(data)
+                      }}
+                    />
+                  </Box>
+                )
+              })}
+            </SimpleGrid>
+          ) : (
+            <Empty minH="400px" tip={t('empty')} />
+          )}
         </Box>
       )}
     </>

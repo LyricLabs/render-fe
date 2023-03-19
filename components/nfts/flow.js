@@ -7,7 +7,7 @@ import LoadingPanel from '../loadingPanel'
 import NFT from './nft'
 import Empty from '../../components/empty'
 
-const Component = ({ path, maxSelect = 5, onChange = () => {} }) => {
+const Component = ({ addr, path, maxSelect = 5, onChange = () => {} }) => {
   const { t } = useTranslation('common')
   //   const { colorMode } = useColorMode()
   //   const [isPC = true] = useMediaQuery('(min-width: 48em)')
@@ -18,7 +18,7 @@ const Component = ({ path, maxSelect = 5, onChange = () => {} }) => {
     isFetchingNextPage,
     hasNextPage,
     fetchNextPage,
-  } = useFlowNFTs(path, '0x9b2e947ba56602f8') // TODO
+  } = useFlowNFTs(path, addr)
   let { pages = [] } = data
   const [selected, setSelect] = useState([])
 
@@ -51,10 +51,6 @@ const Component = ({ path, maxSelect = 5, onChange = () => {} }) => {
         <Box borderRadius="30px" py={4} px={4}>
           {hasData ? (
             <SimpleGrid columns={[2]} spacing={6}>
-              {/* {domains?.map((nft: NFTItem, idx: number) => {
-          return <NFT key={idx} nft={nft} />
-        })} */}
-
               {pages.map((page) => {
                 return page.nfts?.map((nft, idx) => {
                   const { id } = nft
@@ -74,7 +70,6 @@ const Component = ({ path, maxSelect = 5, onChange = () => {} }) => {
                         key={idx}
                         metadata={nft}
                         onClick={async (imgUrl) => {
-
                           const { id, name } = nft
                           const data = { id, name, imgUrl }
                           const selectIdx = hasSelected(id)
@@ -100,7 +95,7 @@ const Component = ({ path, maxSelect = 5, onChange = () => {} }) => {
               })}
             </SimpleGrid>
           ) : (
-            <Empty styles={{ h: '450px' }} tip={'Empty'} />
+            <Empty minH="400px" tip={'Empty'} />
           )}
           {(hasData || hasNextPage) && (
             <Center m={4} w="100%">

@@ -207,7 +207,7 @@ export default function Home() {
             templateRows="repeat(1, 1fr)"
             templateColumns={{ md: 'repeat(1, 1fr)', lg: 'repeat(3, 1fr)' }}
           >
-            <GridItem border="1px solid rgba(0, 0, 0, 0.08)">
+            <GridItem border="1px solid rgba(0, 0, 0, 0.08)" borderRadius="5px">
               <Center px={10} h="100%" py={10}>
                 <DommainItem
                   w="400px"
@@ -246,6 +246,7 @@ export default function Home() {
               colSpan={{ sm: 1, lg: 2 }}
               border="1px solid rgba(0, 0, 0, 0.08)"
               borderLeft="0px"
+              borderRadius="5px"
             >
               {ethAddr ? (
                 <>

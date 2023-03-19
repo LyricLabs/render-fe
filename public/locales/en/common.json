@@ -29,6 +29,7 @@
   "amount": "Amount",
   "balance": "Balance",
   "transfer": "Transfer",
+  "empty": "Empty",
   "transfer.token": "Transfer {{token}} to your friend",
   "to.placeholder": "Flowns domain name or Flow address"
 }

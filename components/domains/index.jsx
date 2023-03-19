@@ -7,7 +7,11 @@ export default function Comp(props) {
 
   return (
     <Box>
-      <SimpleGrid columns={[1, 1, 2, 3]} spacing={5}>
+      <SimpleGrid
+        columns={[1, 1, 2, 3]}
+        spacing={5}
+        overflowY="scroll"
+      >
         {domains.map((domain, idx) => {
           // if(domain.deprecated) {
           //   return null
@@ -18,7 +22,7 @@ export default function Comp(props) {
             </Center>
           )
         })}
-    </SimpleGrid>
+      </SimpleGrid>
     </Box>
   )
 }

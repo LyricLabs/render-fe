@@ -23,8 +23,8 @@ export default function Comp(props) {
   const { domainInfo = {}, defaultDomain = '', onChange = () => {} } = props
   // console.log(domainInfo)
   const { owner = '', addresses = {}, texts = {} } = domainInfo
-  // const ethAddr = addresses[1]
-  const ethAddr = '0x9854716BB75963c53c4f8cCA97B74B94Db848a71'
+  const ethAddr = addresses[1]
+
   const ethLogo = '/assets/eth.svg'
   const flowLogo = '/assets/flow.svg'
 
@@ -80,7 +80,7 @@ export default function Comp(props) {
             <EthNFTs
               nft={'0x8a90cab2b38dba80c64b7734e58ee1db38b8992e'}
               abi={doodleABI}
-              addr={'0xFa4D5258804D7723eb6A934c11b1bd423bC31623'}
+              addr={ethAddr}
               cid={'QmPMc4tcBsMqLRuCQtPmPe84bpSjrC3Ky7t3JWuHXYB4aS'}
               collectionName={'Doodles'}
               onChange={(selected) => {
@@ -100,7 +100,7 @@ export default function Comp(props) {
             <EthNFTs
               nft={'0x8a90cab2b38dba80c64b7734e58ee1db38b8992e'}
               abi={doodleABI}
-              addr={'0xc7FE0D62a590F8507a783a02029C1Fd5cEC0991a'}
+              addr={ethAddr}
               collectionName={'Dooplicator'}
               baseURI="https://metadata.artlab.xyz/0185fa75-ba04-8156-9fbe-bb39dc263392"
               onChange={(selected) => {
