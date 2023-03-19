@@ -8,9 +8,11 @@ export default function Comp(props) {
   return (
     <Box>
       <SimpleGrid
-        columns={[1, 1, 2, 3]}
+        columns={[1, 1, 2, 2, 3]}
         spacing={5}
         overflowY="scroll"
+        py={6}
+        px={5}
       >
         {domains.map((domain, idx) => {
           // if(domain.deprecated) {
